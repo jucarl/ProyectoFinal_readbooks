@@ -1,0 +1,13 @@
+.table th .table td{
+    @apply border-solid border-4 border-blue-500;
+}
+
+.table th
+{
+    @apply  text-blue-300;
+}
+
+.table tbody tr:nth-child(2n+1)
+{
+    @apply bg-gray-200;
+}
