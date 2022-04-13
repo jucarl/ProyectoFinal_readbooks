@@ -7,5 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Libro extends Model
 {
-    use HasFactory;
+    public function categoria()
+    {
+        return $this->belongsTo('App\Models\Category');
+    }
+
+    public function autor()
+    {
+        return $this->belongsToMany('App\Models\User');
+    }
+
 }
