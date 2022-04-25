@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('libros', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->unsignedBigInteger('autor_id'); 
+            $table->unsignedBigInteger('autor_id')->nullondelete(); 
             //$table->string('autor', 80);
             //$table->string('editorial', 90);
             $table->string('isbn')->nullable(); //Puede quedar sin ISBN
@@ -26,8 +26,9 @@ return new class extends Migration
             $table->unsignedBigInteger('categoria_id')->nullable();
             $table->string('portada'); //Aqui va el nombre del archivo que es la portada
             $table->timestamps();
+            $table->softDeletes(); //Timestamp para softdeletes (se añade librería en models/libro) 
 
-            //Llaves foraneas para la categoría y el autor/usuario y usuario/libros
+            //Llaves foraneas para la categoría y el autor/usuario
             $table->foreign('categoria_id')
             ->references('id')
             ->on('categorias')
@@ -35,8 +36,7 @@ return new class extends Migration
       
             $table->foreign('autor_id')
             ->references('id')
-            ->on('users')
-            ->onDelete('set null');
+            ->on('users');
 
         });
     }
@@ -48,6 +48,7 @@ return new class extends Migration
      */
     public function down()
     {
+        
         Schema::dropIfExists('libros');
     }
 };

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('leido')->default(FALSE);
             $table->unsignedInteger('calificacion')->default(0);
             $table->timestamps();
+            $table->softDeletes();//User::first()->delete(); borrar el primer usuario soft delete
 
             $table->foreign('user_id')
                   ->references('id')
