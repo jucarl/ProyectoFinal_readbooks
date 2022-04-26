@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('libros', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->unsignedBigInteger('autor_id')->nullondelete(); 
+            $table->unsignedBigInteger('autor_id')->default(1); 
             //$table->string('autor', 80);
             //$table->string('editorial', 90);
             $table->string('isbn')->nullable(); //Puede quedar sin ISBN

@@ -17,7 +17,7 @@ class Libro extends Model
 
     public function autor()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsTo('App\Models\User');
     }
 
 }

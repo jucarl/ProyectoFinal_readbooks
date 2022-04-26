@@ -59,4 +59,14 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function autorialibros()
+    {
+        return $this->hasMany(libro::class);
+    }
+
+    public function favoritos()
+    {
+        return $this->hasMany(libro::class);
+    }
 }
