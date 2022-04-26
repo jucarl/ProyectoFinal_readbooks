@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\categoria;
+use App\Models\Categoria as ModelsCategoria;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
@@ -14,6 +16,8 @@ class CategoriaController extends Controller
     public function index()
     {
         //
+        $categorias = Categoria::all();
+        return view('admin.users.index', compact('categorias'));
     }
 
     /**
@@ -24,6 +28,8 @@ class CategoriaController extends Controller
     public function create()
     {
         //
+        $categorias = Categoria::all();
+        return view('libros.nuevoLibro');
     }
 
     /**

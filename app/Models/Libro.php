@@ -12,12 +12,14 @@ class Libro extends Model
 
     public function categoria()
     {
-        return $this->belongsTo('App\Models\Category');
+        return $this->belongsTo('App\Models\Categoria','categoria_id');
     }
 
     public function autor()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User','autor_id');
     }
+
+
 
 }

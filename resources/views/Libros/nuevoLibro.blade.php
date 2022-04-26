@@ -38,7 +38,7 @@
             <input class="form-control" type="text" name="editorial" value="{{isset($libro) ? $libro->ISBN : ''}}">
             <br>
             <label class="text-gray-700" for="publicacion">Fecha de Publicación</label><br>
-            <input class="form-control" type="date" name="publicacion" value="{{isset($libro) ? $libro->fecha_publicacion : ''}}">
+            <input class="form-control" type="numeric" name="publicacion" value="{{isset($libro) ? $libro->fecha_publicacion : ''}}">
             <br>
             <label class="text-gray-700" for="paginas">Numero de Páginas</label><br>
             <input class="form-control" type="text" name="paginas" value="{{isset($libro) ? $libro->paginas : ''}}">
@@ -50,9 +50,13 @@
             <br>
             <label class="text-gray-700" for="tema">Tema</label><br>
             <select class="form-control" name="tema" id="tema">
-                <option value="Ficcion"{{isset($libro) && $libro->id_categoria == 'Ficcion' ? 'selected' : '' }}>Ficcion</option>
+                @foreach( $categorias as $categoria )
+                     <option value="{{ $categoria->id}}">{{ $categoria->nombre }}</option>
+                @endforeach
+
+               {{-- <option value="Ficcion"{{isset($libro) && $libro->id_categoria == 'Ficcion' ? 'selected' : '' }}>Ficcion</option>
                 <option value="Arte"{{isset($libro) && $libro->id_categoria == 'Arte' ? 'selected' : ''}}>Arte</option>
-                <option value="Novela"{{isset($libro) && $libro->id_categoria == 'Novela' ? 'selected' : ''}}>Novela</option>
+                <option value="Novela"{{isset($libro) && $libro->id_categoria == 'Novela' ? 'selected' : ''}}>Novela</option> --}}
             </select>
             <button type="submit" class="btn btn-outline-info">Guardar</button>
         </form>

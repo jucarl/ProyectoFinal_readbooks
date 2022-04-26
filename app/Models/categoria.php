@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class categoria extends Model
+class Categoria extends Model
 {
-    public function libro()
+    public function libros()
     {
-        return $this->hasMany(libro::class);
+        return $this->hasMany('App\Models\Libro','id');
     }
 }

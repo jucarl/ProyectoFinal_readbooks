@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Libro;
 use Illuminate\Http\Request;
+use App\Models\Categoria;
 
 class LibroController extends Controller
 {
@@ -15,6 +16,7 @@ class LibroController extends Controller
     public function index()
     {
         $libros = Libro::all();//eager loading
+
         return view('libros.indiceLibros',compact('libros'));
     }
 
@@ -25,7 +27,8 @@ class LibroController extends Controller
      */
     public function create()
     {
-        return view('libros.nuevoLibro');
+        $categorias = Categoria::all();
+        return view('libros.nuevoLibro',compact('categorias'));
     }
 
     /**

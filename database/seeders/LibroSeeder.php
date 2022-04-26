@@ -17,12 +17,12 @@ class LibroSeeder extends Seeder
     {
         DB::table('libros')->insert([
             'titulo' => 'Ejemplo1',
-            
+
             'ISBN' => 'QW23WE',
             'fecha_publicacion' => 1999,
             'paginas' => 333,
             'descripcion' => 'Es un libro de ejemplo',
-            
+            'categoria_id' => 4,
             'portada' => 'Casual.jpg',
         ]);
     }

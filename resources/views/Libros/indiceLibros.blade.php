@@ -23,12 +23,12 @@
             @foreach($libros as $libro)
             <tr>
                 <td>{{$libro->titulo}}</td>
-                <td>{{$libro->name}}</td>
+                <td>{{$libro->autor->name}}</td>
                 <td>{{$libro->isbn}}</td>
                 <td>{{$libro->fecha_publicacion}}</td>
                 <td>{{$libro->paginas}}</td>
                 <td>{{$libro->descripcion}}</td>
-                <td>{{$libro->categoria_id}}</td>
+                <td>{{$libro->categoria->nombre}}</td>
                 <td>
                     <div class="d-grid gap-2 d-md-block">
                         <a href="libros/{{$libro ->id}}" type="button" class="btn btn-primary btn-sm">Detalle</a>
