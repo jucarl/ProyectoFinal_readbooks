@@ -1,10 +1,10 @@
 <x-navbar>
 
-    <div class="main-content flex-1 mt-16 mx-12">
-        <h1 class="text-blue-500 font-bold text-lg">Detalles libro</h1>
+    <div >
+        <h1 >Detalles libro</h1>
 
-        <table  class="table-fixed w-full  mt-12">
-            <tr class=" border bg-gray-200">
+        <table  class="table table-striped">
+            <tr >
                 <th>Titulo</th>
                 <th>Autor</th>
                 <th>Editorial</th>
@@ -14,13 +14,13 @@
                 <th>Tema</th>
             </tr>
                 <tr>
-                    <td class="border px-4 py-2">{{$libro -> titulo}}</td>
-                    <td class="border px-4 py-2">{{$libro -> autor}}</td>
-                    <td class="border px-4 py-2">{{$libro -> editorial}}</td>
-                    <td class="border px-4 py-2">{{$libro -> publicacion}}</td>
-                    <td class="border px-4 py-2">{{$libro -> paginas}}</td>
-                    <td class="border px-4 py-2">{{$libro -> descripcion}}</td>
-                    <td class="border px-4 py-2">{{$libro -> tema}}</td>
+                    <td>{{$libro -> titulo}}</td>
+                    <td>{{$libro -> id_autor}}</td>
+                    <td>{{$libro -> isbn}}</td>
+                    <td>{{$libro -> fecha_publicacion}}</td>
+                    <td>{{$libro -> paginas}}</td>
+                    <td>{{$libro -> descripcion}}</td>
+                    <td>{{$libro -> id_categoria}}</td>
                 </tr>
         </table>
     </div>

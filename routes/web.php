@@ -24,3 +24,8 @@ Route::resource('/libros', LibroController::class)->middleware('auth');
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::get('/users', function () {
+    return view('admin.users.index');
+});
+//Route::resource('/users', UsersController::class);

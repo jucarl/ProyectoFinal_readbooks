@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class categoria extends Model
 {
-    public function libros()
+    public function libro()
     {
         return $this->hasMany('App\Models\Libro');
     }
