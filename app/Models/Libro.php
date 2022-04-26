@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Libro extends Model
 {
+    use softDeletes;
+
     public function categoria()
     {
         return $this->belongsTo('App\Models\Category');
@@ -14,7 +17,7 @@ class Libro extends Model
 
     public function autor()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsTo('App\Models\User');
     }
 
 }

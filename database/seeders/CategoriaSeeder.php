@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\categoria;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CategoriaSeeder extends Seeder
 {
@@ -15,11 +16,24 @@ class CategoriaSeeder extends Seeder
      */
     public function run()
     {
-        categoria::create(['nombre' => 'Acción']);
-        categoria::create(['nombre' => 'Aventura']);
-        categoria::create(['nombre' => 'Historia']);
-        categoria::create(['nombre' => 'Novela Romantica']);
-        categoria::create(['nombre' => 'Novela Grafica']);
+        DB::table('categorias')->insert([
+        'nombre' => 'Acción',
+    ]);
+
+    DB::table('categorias')->insert([
+        'nombre' => 'Aventura',
+    ]);
+
+    DB::table('categorias')->insert([
+        'nombre' => 'Historia',
+    ]);
+
+    DB::table('categorias')->insert([
+        'nombre' => 'Novela Romantica',
+    ]);
+
+
+
     }
 }
 //Pendiente añadir mas categorias

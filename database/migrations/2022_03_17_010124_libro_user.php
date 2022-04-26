@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('usuario_libro', function (Blueprint $table) {
+        Schema::create('libro_user', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('libro_id');
             $table->boolean('leido')->default(FALSE);
             $table->unsignedInteger('calificacion')->default(0);
             $table->timestamps();
+            $table->softDeletes();//User::first()->delete(); borrar el primer usuario soft delete
 
             $table->foreign('user_id')
                   ->references('id')

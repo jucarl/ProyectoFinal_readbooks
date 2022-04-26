@@ -9,6 +9,6 @@ class categoria extends Model
 {
     public function libro()
     {
-        return $this->hasMany('App\Models\Libro');
+        return $this->hasMany(libro::class);
     }
 }

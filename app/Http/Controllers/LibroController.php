@@ -14,7 +14,7 @@ class LibroController extends Controller
      */
     public function index()
     {
-        $libros = Libro::all();
+        $libros = Libro::all();//eager loading
         return view('libros.indiceLibros',compact('libros'));
     }
 
@@ -49,7 +49,7 @@ class LibroController extends Controller
 
         $libro = new Libro(); #Instancia clase
         $libro->titulo = $request->titulo; #Invocar atributos (col dentro de tabla)
-        $libro->autor = $request->autor;
+        $libro->autor = $request->user_id;
         $libro->editorial = $request->editorial;
         $libro->publicacion = $request->publicacion;
         $libro->paginas = $request->paginas;
