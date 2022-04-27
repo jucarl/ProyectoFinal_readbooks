@@ -29,36 +29,42 @@
 
             @csrf   <!--Proteccion contra ataque -->
             <label class="text-gray-700" for="libro">Nombre del Libro</label><br>
-            <input class="form-control" type="text" name="titulo" value="{{isset($libro) ? $libro->titulo : ''}}">
+            <input class="form-control" type="text" name="titulo" value="{{ old('titulo') }}{{isset($libro) ? $libro->titulo : ''}}">
             <br>
             <label class="text-gray-700" for="autor">Autor</label><br>
-            <input class="form-control" type="text" name="autor" value="{{isset($libro) ? $libro->id_autor : ''}}">
+            <input class="form-control" type="text" name="autor" value="{{ old('autor') }}{{isset($libro) ? $libro->autor : ''}}">
             <br>
             <label class="text-gray-700" for="editorial">ISBN</label><br>
-            <input class="form-control" type="text" name="editorial" value="{{isset($libro) ? $libro->ISBN : ''}}">
+            <input class="form-control" type="text" name="isbn" value="{{ old('isbn') }}{{isset($libro) ? $libro->isbn : ''}}">
             <br>
             <label class="text-gray-700" for="publicacion">Fecha de Publicación</label><br>
-            <input class="form-control" type="numeric" name="publicacion" value="{{isset($libro) ? $libro->fecha_publicacion : ''}}">
+            <input class="form-control" type="numeric" name="publicacion" value="{{ old('publicacion') }}{{isset($libro) ? $libro->fecha_publicacion : ''}}">
             <br>
             <label class="text-gray-700" for="paginas">Numero de Páginas</label><br>
-            <input class="form-control" type="text" name="paginas" value="{{isset($libro) ? $libro->paginas : ''}}">
+            <input class="form-control" type="text" name="paginas" value="{{ old('paginas') }}{{isset($libro) ? $libro->paginas : ''}}">
             <br>
             <label class="text-gray-700" for="descripcion">Descripcion</label><br>
             <textarea class="form-control" name="descripcion" id="descripcion" cols="10" rows="4">
-                {{isset($libro) ? $libro->descripcion : '' }}
+            {{ old('descripcion') }}{{isset($libro) ? $libro->descripcion : '' }}
             </textarea>
             <br>
             <label class="text-gray-700" for="tema">Tema</label><br>
             <select class="form-control" name="tema" id="tema">
                 @foreach( $categorias as $categoria )
-                     <option value="{{ $categoria->id}}">{{ $categoria->nombre }}</option>
+                     <option value="{{ $categoria->nombre}}">{{ $categoria->nombre }}</option>
                 @endforeach
-
-               {{-- <option value="Ficcion"{{isset($libro) && $libro->id_categoria == 'Ficcion' ? 'selected' : '' }}>Ficcion</option>
-                <option value="Arte"{{isset($libro) && $libro->id_categoria == 'Arte' ? 'selected' : ''}}>Arte</option>
-                <option value="Novela"{{isset($libro) && $libro->id_categoria == 'Novela' ? 'selected' : ''}}>Novela</option> --}}
             </select>
+
+            <label for="PortaLibro" class="form-label">Portada Libro</label>
+            <input class="form-control" type="file" id="Portadalibro">
+
+            <label for="Libro" class="form-label">Libro</label>
+            <input class="form-control" type="file" id="Libro">
+
             <button type="submit" class="btn btn-outline-info">Guardar</button>
         </form>
+        <div class="mb-3">
+ 
+</div>
     </div>
 </x-navbar>

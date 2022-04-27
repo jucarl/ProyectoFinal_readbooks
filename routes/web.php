@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LibroController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\DB;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +30,4 @@ Route::get('/users', function () {
     return view('admin.users.index');
 });
 //Route::resource('/users', UsersController::class);
+

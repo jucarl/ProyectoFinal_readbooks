@@ -40,20 +40,20 @@ class LibroController extends Controller
     public function store(Request $request)
     {
           //Validacion y limpieza
-          $request->validate([
+          $validatedData = $request->validate([
             'titulo' => 'required|min:5|max:100',
-            'autor' => 'required',
-            'editorial' => 'required',
+            'autor' => 'required|exists:users,name',
+            'isbn' => 'required',
             'publicacion' => 'required',
             'paginas' => 'required',
             'descripcion' => ['required','min:5'],
-            'tema' => 'required',
+            'tema' => 'required|exists:categorias,nombre',
         ]);
 
         $libro = new Libro(); #Instancia clase
         $libro->titulo = $request->titulo; #Invocar atributos (col dentro de tabla)
-        $libro->autor = $request->user_id;
-        $libro->editorial = $request->editorial;
+        $libro->autor = $request->user;
+        $libro->isbn = $request->isbn;
         $libro->publicacion = $request->publicacion;
         $libro->paginas = $request->paginas;
         $libro->descripcion = $request->descripcion;

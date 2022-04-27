@@ -15,12 +15,12 @@
             </tr>
                 <tr>
                     <td>{{$libro -> titulo}}</td>
-                    <td>{{$libro -> id_autor}}</td>
+                    <td>{{$libro -> autor->name}}</td>
                     <td>{{$libro -> isbn}}</td>
                     <td>{{$libro -> fecha_publicacion}}</td>
                     <td>{{$libro -> paginas}}</td>
                     <td>{{$libro -> descripcion}}</td>
-                    <td>{{$libro -> id_categoria}}</td>
+                    <td>{{$libro -> categoria->nombre}}</td>
                 </tr>
         </table>
     </div>
