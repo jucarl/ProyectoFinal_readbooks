@@ -6,6 +6,8 @@ use App\Models\Libro;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\User;
+use Illuminate\Contracts\Cache\Store;
+use Illuminate\Support\Facades\Storage;
 
 class LibroController extends Controller
 {
@@ -50,12 +52,13 @@ class LibroController extends Controller
             'paginas' => 'required',
             'descripcion' => ['required','min:5'],
             'tema' => 'required|exists:categorias,nombre',
-            //'portada' => 'image|required', 
+            //'portada' => 'image|required|max:2048',
         ]);
 
         $libro = new Libro(); #Instancia clase
         $datoautor =User::where('name',$request->autor)->value('name');
         $datocateogria =Categoria::where('nombre',$request->tema)->value('id');
+
 
         $libro->titulo = $request->titulo; #Invocar atributos (col dentro de tabla)
         //$libro->autor_id = $request->autor;
@@ -65,11 +68,19 @@ class LibroController extends Controller
         $libro->paginas = $request->paginas;
         $libro->descripcion = $request->descripcion;
         $libro->categoria_id = $datocateogria;
-        $libro->portada = $request->file('portada_libro');;
+
+        //Almacenar la imagen si se añade
+        if($request->hasFile('portada_libro'));
+        {
+            $imagenes = $request->file('portada_libro')->store('public/portadas');
+            $url = Storage::url($imagenes); 
+
+            $libro->portada = $url; //URL para la BD
+        }
+
 
         //Guardar BD
         $libro->save();
-
         //Redireccionar
         return redirect('/libros');
     }

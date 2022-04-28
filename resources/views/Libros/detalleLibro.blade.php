@@ -12,6 +12,7 @@
                 <th>Páginas</th>
                 <th>Descripción</th>
                 <th>Tema</th>
+                <th>Portada</th>
             </tr>
                 <tr>
                     <td>{{$libro -> titulo}}</td>
@@ -21,6 +22,7 @@
                     <td>{{$libro -> paginas}}</td>
                     <td>{{$libro -> descripcion}}</td>
                     <td>{{$libro -> categoria->nombre}}</td>
+                    <td><a href="{{url($libro->portada)}}"><img src="{{url($libro->portada)}}" alt="" width="20 px"></a></td>
                 </tr>
         </table>
     </div>

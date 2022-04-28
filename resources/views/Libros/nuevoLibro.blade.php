@@ -21,10 +21,10 @@
 
 
         @isset($libro)
-        <form action="/libros/{{$libro->id }}" method="post" class="grid grid-cols-1 gap-1 mt-6 sm:grid-cols-1"> <!----actualizar-->
+        <form action="/libros/{{$libro->id }}" method="post" class="" enctype="multipart/form-data"> <!----actualizar-->
             @method ('PATCH')
         @else
-        <form action="/libros" method="post" class="grid grid-cols-1 gap-1 mt-6 sm:grid-cols-1">
+        <form action="/libros" method="post" class="" enctype="multipart/form-data">
         @endisset
 
             @csrf   <!--Proteccion contra ataque -->
@@ -57,7 +57,7 @@
 
             <label for="portada_libro" class="col-md-4 col-form-label text-md-right">Portada</label>
             <div class="col-md-6">
-                <input id="portada_libro" accept="image/*" type="file" onchange="readCoverImage(this);" class="form-control @error('portada_libro') is-invalid @enderror" name="portada_libro" value="{{ old('portada_libro') }}" autocomplete="portada_libro">
+                <input id="portada_libro" accept="image/*" type="file" name="portada_libro" onchange="readCoverImage(this);" class="form-control @error('portada_libro') is-invalid @enderror" value="{{ old('portada_libro') }}" autocomplete="portada_libro">
 
                 @error('portada_libro')
                 <span class="invalid-feedback" role="alert">
@@ -70,11 +70,11 @@
 
             <label for="Libro" class="form-label">Libro</label>
             <input class="form-control" type="file" id="Libro">
-
+            <br>
             <button type="submit" class="btn btn-outline-info">Guardar</button>
         </form>
         <div class="mb-3">
- 
-</div>
+
+        </div>
     </div>
 </x-navbar>
