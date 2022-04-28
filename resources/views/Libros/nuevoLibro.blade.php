@@ -32,7 +32,7 @@
             <input class="form-control" type="text" name="titulo" value="{{ old('titulo') }}{{isset($libro) ? $libro->titulo : ''}}">
             <br>
             <label class="text-gray-700" for="autor">Autor</label><br>
-            <input class="form-control" type="text" name="autor" value="{{ old('autor') }}{{isset($libro) ? $libro->autor : ''}}">
+            <input class="form-control" type="text" name="autor" value="{{ old('autor') }}{{isset($libro) ? $libro->autor_id : ''}}">
             <br>
             <label class="text-gray-700" for="editorial">ISBN</label><br>
             <input class="form-control" type="text" name="isbn" value="{{ old('isbn') }}{{isset($libro) ? $libro->isbn : ''}}">
@@ -55,8 +55,18 @@
                 @endforeach
             </select>
 
-            <label for="PortaLibro" class="form-label">Portada Libro</label>
-            <input class="form-control" type="file" id="Portadalibro">
+            <label for="portada_libro" class="col-md-4 col-form-label text-md-right">Portada</label>
+            <div class="col-md-6">
+                <input id="portada_libro" accept="image/*" type="file" onchange="readCoverImage(this);" class="form-control @error('portada_libro') is-invalid @enderror" name="portada_libro" value="{{ old('portada_libro') }}" autocomplete="portada_libro">
+
+                @error('portada_libro')
+                <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+
+                <img id="portada_libro-thumb" class="img-fluid img-thumbnail" src="">
+            </div>
 
             <label for="Libro" class="form-label">Libro</label>
             <input class="form-control" type="file" id="Libro">

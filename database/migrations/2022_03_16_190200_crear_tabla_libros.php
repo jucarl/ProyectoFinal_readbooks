@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedinteger('paginas');
             $table->text('descripcion');
             $table->unsignedBigInteger('categoria_id')->nullable();
-            $table->string('portada'); //Aqui va el nombre del archivo que es la portada
+            $table->string('portada')->nullable(); //Aqui va el nombre del archivo que es la portada
             $table->timestamps();
             $table->softDeletes(); //Timestamp para softdeletes (se añade librería en models/libro) 
 

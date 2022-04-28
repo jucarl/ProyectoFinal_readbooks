@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Libro;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
+use App\Models\User;
 
 class LibroController extends Controller
 {
@@ -16,7 +17,7 @@ class LibroController extends Controller
     public function index()
     {
         $libros = Libro::all();//eager loading
-
+        $categoria = categoria::all();
         return view('libros.indiceLibros',compact('libros'));
     }
 
@@ -39,6 +40,7 @@ class LibroController extends Controller
      */
     public function store(Request $request)
     {
+        $autor = User::all();
           //Validacion y limpieza
           $validatedData = $request->validate([
             'titulo' => 'required|min:5|max:100',
@@ -48,16 +50,22 @@ class LibroController extends Controller
             'paginas' => 'required',
             'descripcion' => ['required','min:5'],
             'tema' => 'required|exists:categorias,nombre',
+            //'portada' => 'image|required', 
         ]);
 
         $libro = new Libro(); #Instancia clase
+        $datoautor =User::where('name',$request->autor)->value('name');
+        $datocateogria =Categoria::where('nombre',$request->tema)->value('id');
+
         $libro->titulo = $request->titulo; #Invocar atributos (col dentro de tabla)
-        $libro->autor = $request->user;
+        //$libro->autor_id = $request->autor;
+        $libro -> $datoautor;
         $libro->isbn = $request->isbn;
-        $libro->publicacion = $request->publicacion;
+        $libro->fecha_publicacion = $request->publicacion;
         $libro->paginas = $request->paginas;
         $libro->descripcion = $request->descripcion;
-        $libro->tema = $request->tema;
+        $libro->categoria_id = $datocateogria;
+        $libro->portada = $request->file('portada_libro');;
 
         //Guardar BD
         $libro->save();
@@ -100,23 +108,29 @@ class LibroController extends Controller
     {
         $request->validate([
             'titulo' => 'required|min:5|max:100',
-            'autor' => 'required',
-            'editorial' => 'required',
+            'autor' => 'required|exists:users,name',
+            'isbn' => 'required',
             'publicacion' => 'required',
             'paginas' => 'required',
             'descripcion' => ['required','min:5'],
-            'tema' => 'required',
+            'tema' => 'required|exists:categorias,nombre',
         ]);
 
        // $libro = new Libro(); #Instancia clase
         $libro->titulo = $request->titulo; #Invocar atributos (col dentro de tabla)
-        $libro->autor = $request->autor;
-        $libro->editorial = $request->editorial;
-        $libro->publicacion = $request->publicacion;
+        $libro = User::where('name',$request->autor)->value('name');
+        $libro->isbn = $request->isbn;
+        $libro->fecha_publicacion = $request->publicacion;
         $libro->paginas = $request->paginas;
         $libro->descripcion = $request->descripcion;
-        $libro->tema = $request->tema;
+        $libro->categoria_id = $request->tema;
+        $libro->portada = $request->file('portada_libro');;
 
+        $libro->titulo = $request->titulo;
+        if ($request->has ('portada')) {
+            Storage::disk('local')->delete($libro->portada);
+            $libro->portada = $request->file('portada_libro');;
+        }
         //Guardar BD
         $libro->save();
 
@@ -132,6 +146,7 @@ class LibroController extends Controller
      */
     public function destroy(Libro $libro)
     {
+        Storage::disk('local')->delete($libro->portada);
         $libro->delete();
         return redirect('/libros');
     }
