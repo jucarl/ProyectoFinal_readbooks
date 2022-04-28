@@ -16,6 +16,8 @@
                 <th>Páginas</th>
                 <th>Descripción</th>
                 <th>Tema</th>
+                <th>Portada</th>
+                <th>Archivo</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -29,6 +31,14 @@
                 <td>{{$libro->paginas}}</td>
                 <td>{{$libro->descripcion}}</td>
                 <td>{{$libro->categoria->nombre}}</td>
+                <td>{{$libro->portada_libro}}</td>
+                <td>
+                    <a href="{{$libro->archivo_libro}}">
+                        <div style="height:100%;width:100%">
+                        {{$libro->titulo}}
+                        </div>
+                    </a>
+                </td>
                 <td>
                     <div class="d-grid gap-2 d-md-block">
                         <a href="libros/{{$libro ->id}}" type="button" class="btn btn-primary btn-sm">Detalle</a>

@@ -52,7 +52,8 @@ class LibroController extends Controller
             'paginas' => 'required',
             'descripcion' => ['required','min:5'],
             'tema' => 'required|exists:categorias,nombre',
-            //'portada' => 'image|required|max:2048',
+            'portada_libro' => 'image|required',
+            'archivo_libro' => 'required|mimes:pdf'
         ]);
 
         $libro = new Libro(); #Instancia clase
@@ -61,7 +62,6 @@ class LibroController extends Controller
 
 
         $libro->titulo = $request->titulo; #Invocar atributos (col dentro de tabla)
-        //$libro->autor_id = $request->autor;
         $libro -> $datoautor;
         $libro->isbn = $request->isbn;
         $libro->fecha_publicacion = $request->publicacion;
@@ -72,10 +72,23 @@ class LibroController extends Controller
         //Almacenar la imagen si se añade
         if($request->hasFile('portada_libro'));
         {
-            $imagenes = $request->file('portada_libro')->store('public/portadas');
+            $imagenes = $request->file('portada_libro');
+            $imgname = $libro->titulo.time().'.'.$imagenes->getClientOriginalExtension();
+            $imagenes= $imagenes->storeAs('public/portadas',$imgname);
             $url = Storage::url($imagenes); 
 
             $libro->portada = $url; //URL para la BD
+        }
+
+        //Almacenar el libro si se añade
+        if($request->hasFile('archivo_libro'));
+        {
+            $archivo = $request->file('archivo_libro');
+            $filename = $libro->titulo.time().'.'.$archivo->getClientOriginalExtension();
+            $archivo = $archivo->storeAs('public/libros',$filename);
+            $url2 = Storage::url($archivo); 
+
+            $libro->archivo_libro = $url2; //URL para la BD
         }
 
 
@@ -94,6 +107,7 @@ class LibroController extends Controller
     public function show(Libro $libro)
     {
         return view('libros.detalleLibro',compact('libro'));
+       
     }
 
     /**
@@ -125,23 +139,46 @@ class LibroController extends Controller
             'paginas' => 'required',
             'descripcion' => ['required','min:5'],
             'tema' => 'required|exists:categorias,nombre',
+            'portada' => 'image|required',
+            'archivo_libro' => 'required|mimes:pdf'
         ]);
 
        // $libro = new Libro(); #Instancia clase
+       $datoautor =User::where('name',$request->autor)->value('name');
+       $datocateogria =Categoria::where('nombre',$request->tema)->value('id');
+
         $libro->titulo = $request->titulo; #Invocar atributos (col dentro de tabla)
-        $libro = User::where('name',$request->autor)->value('name');
+        $libro -> $datoautor;
         $libro->isbn = $request->isbn;
         $libro->fecha_publicacion = $request->publicacion;
         $libro->paginas = $request->paginas;
         $libro->descripcion = $request->descripcion;
-        $libro->categoria_id = $request->tema;
-        $libro->portada = $request->file('portada_libro');;
-
-        $libro->titulo = $request->titulo;
-        if ($request->has ('portada')) {
+        $libro->categoria_id = $datocateogria;
+        //$libro->portada = $request->file('portada_libro');;
+        
+         //Almacenar la imagen si se añade
+         if($request->hasFile('portada_libro'));
+         {
             Storage::disk('local')->delete($libro->portada);
-            $libro->portada = $request->file('portada_libro');;
-        }
+             $imagenes = $request->file('portada_libro');
+             $imgname = $libro->titulo.time().'.'.$imagenes->getClientOriginalExtension();
+             $imagenes= $imagenes->storeAs('public/portadas',$imgname);
+             $url = Storage::url($imagenes); 
+ 
+             $libro->portada = $url; //URL para la BD
+         }
+ 
+         //Almacenar el libro si se añade
+         if($request->hasFile('archivo_libro'));
+         {
+            Storage::disk('local')->delete($libro->archivo_libro);
+             $archivo = $request->file('archivo_libro');
+             $filename = $libro->titulo.time().'.'.$archivo->getClientOriginalExtension();
+             $archivo = $archivo->storeAs('public/libros',$filename);
+             $url2 = Storage::url($archivo); 
+ 
+             $libro->archivo_libro = $url2; //URL para la BD
+         }
         //Guardar BD
         $libro->save();
 

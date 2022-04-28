@@ -68,8 +68,15 @@
                 <img id="portada_libro-thumb" class="img-fluid img-thumbnail" src="">
             </div>
 
-            <label for="Libro" class="form-label">Libro</label>
-            <input class="form-control" type="file" id="Libro">
+            <label for="archivo_libro" class="form-label">Libro</label>
+            <div class="col-md-6">
+                <input class="form-control" type="file" id="archivo_libro" name="archivo_libro" value="{{ old('archivo_libro') }}" accept=".doc, .docx, .txt, .pdf" >
+                @error('archivo_libro')
+                <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
             <br>
             <button type="submit" class="btn btn-outline-info">Guardar</button>
         </form>
