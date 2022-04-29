@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LibroController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\DB;
 
@@ -30,8 +31,10 @@ Route::get('/users', function () {
     return view('admin.users.index');
 });
 
-Route::get('/profile', function () {
+/* Route::get('/profile', function () {
     return view('user.profile');
-});
+}); */
+
+Route::resource('/profile', ProfileController::class);
 //Route::resource('/users', UsersController::class);
 

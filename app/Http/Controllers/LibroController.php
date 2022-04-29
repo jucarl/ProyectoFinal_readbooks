@@ -75,7 +75,7 @@ class LibroController extends Controller
             $imagenes = $request->file('portada_libro');
             $imgname = $libro->titulo.time().'.'.$imagenes->getClientOriginalExtension();
             $imagenes= $imagenes->storeAs('public/portadas',$imgname);
-            $url = Storage::url($imagenes); 
+            $url = Storage::url($imagenes);
 
             $libro->portada = $url; //URL para la BD
         }
@@ -86,7 +86,7 @@ class LibroController extends Controller
             $archivo = $request->file('archivo_libro');
             $filename = $libro->titulo.time().'.'.$archivo->getClientOriginalExtension();
             $archivo = $archivo->storeAs('public/libros',$filename);
-            $url2 = Storage::url($archivo); 
+            $url2 = Storage::url($archivo);
 
             $libro->archivo_libro = $url2; //URL para la BD
         }
@@ -107,7 +107,14 @@ class LibroController extends Controller
     public function show(Libro $libro)
     {
         return view('libros.detalleLibro',compact('libro'));
-       
+
+    }
+
+    public function showMyBooks()
+    {
+        $libros = Libro::all();//eager loading
+        return view('user.profile',compact('libros'));
+
     }
 
     /**
@@ -155,7 +162,7 @@ class LibroController extends Controller
         $libro->descripcion = $request->descripcion;
         $libro->categoria_id = $datocateogria;
         //$libro->portada = $request->file('portada_libro');;
-        
+
          //Almacenar la imagen si se añade
          if($request->hasFile('portada_libro'));
          {
@@ -163,11 +170,11 @@ class LibroController extends Controller
              $imagenes = $request->file('portada_libro');
              $imgname = $libro->titulo.time().'.'.$imagenes->getClientOriginalExtension();
              $imagenes= $imagenes->storeAs('public/portadas',$imgname);
-             $url = Storage::url($imagenes); 
- 
+             $url = Storage::url($imagenes);
+
              $libro->portada = $url; //URL para la BD
          }
- 
+
          //Almacenar el libro si se añade
          if($request->hasFile('archivo_libro'));
          {
@@ -175,8 +182,8 @@ class LibroController extends Controller
              $archivo = $request->file('archivo_libro');
              $filename = $libro->titulo.time().'.'.$archivo->getClientOriginalExtension();
              $archivo = $archivo->storeAs('public/libros',$filename);
-             $url2 = Storage::url($archivo); 
- 
+             $url2 = Storage::url($archivo);
+
              $libro->archivo_libro = $url2; //URL para la BD
          }
         //Guardar BD

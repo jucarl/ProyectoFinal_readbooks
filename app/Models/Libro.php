@@ -20,7 +20,7 @@ class Libro extends Model
         return $this->belongsTo('App\Models\User','autor_id');
     }
 
-    //accesor, para usarse al mostrar la portada y el libro $libro = Libro::find(1); 
+    //accesor, para usarse al mostrar la portada y el libro $libro = Libro::find(1);
     //$NombreLibro = $libro->nombre;
 
     protected function NombreLibro(): Attribute
