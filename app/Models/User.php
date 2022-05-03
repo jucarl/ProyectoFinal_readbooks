@@ -60,13 +60,22 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
-    public function autorialibros()
+    public function Libros()
     {
-        return $this->hasMany(libro::class);
+        return $this->belongsToMany(Libro::class);
     }
 
-    public function favoritos()
+
+    //Mutator para cifrar contraseña
+    public function setPasswordAttribute($value)
+{
+    $this->attributes['password'] = bcrypt($value);
+}
+
+    //Mutator para poner dar formato a nombre
+    public function setFirstNameAttribute($value)
     {
-        return $this->hasMany(libro::class);
+    $this->attributes['name'] = ucfirst(strtolower($value));
     }
+
 }

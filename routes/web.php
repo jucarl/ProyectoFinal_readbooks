@@ -5,6 +5,8 @@ use App\Http\Controllers\LibroController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +23,20 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+//Mandar a esta ruta para hacer logout
+Route::get('/logout', function (Request $request) {
+    Auth::logout();
+ 
+    $request->session()->invalidate();
+ 
+    $request->session()->regenerateToken();
+    return view('auth.login');
+});
+
+//Ruta para ver todos los libros, debe restringirse a administrador
 Route::resource('/libros', LibroController::class)->middleware('auth');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function (User $user) {
     return view('dashboard');
 })->name('dashboard');
 

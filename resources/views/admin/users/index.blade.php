@@ -49,6 +49,10 @@
         </div>
       </nav>
     <h1>Hello, world!</h1>
+    @foreach($users as $user)
+      {{$user->name}}
+        @endforeach
+        
 
     <!-- Optional JavaScript; choose one of the two! -->
 

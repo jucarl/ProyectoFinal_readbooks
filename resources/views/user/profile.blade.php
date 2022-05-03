@@ -8,14 +8,20 @@
             <h1 class="text-center pt-3">{{ auth()->user()->name}}</h1>
 
         </div>
+        <div class="user-info">
+                            <h5 class="my-3">{{Auth::user()->name}}</h5>
+                            <p><i class="fas fa-envelope mr-2"></i> {{Auth::user()->email}}</p>
+                            <p><i class="fas fa-clock mr-2"></i> {{Auth::user()->created_at? Auth::user()->created_at->diffForHumans(): ''}} </p>
+                        </div>
 
         <div class="container pt-5" >
 
             <div class="row row-cols-auto">
-            @foreach( $libros as $libro )
+            @foreach( $libros as $libro)
 
             <div class="col-sm-4" >
-                <a href="{{$libro->archivo_libro}}">
+                
+                <a href="{{$libro->archivo_libro}}"{{$libroarchivo_libro}}>
                     <img src="{{$libro->portada}}" alt="" class="img-fluid" >
                 </a>
 

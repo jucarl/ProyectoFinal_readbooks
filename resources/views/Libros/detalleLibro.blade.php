@@ -17,7 +17,9 @@
             </tr>
                 <tr>
                     <td>{{$libro -> titulo}}</td>
-                    <td>{{$libro -> autor->name}}</td>
+                    @foreach($libro->autor as $autor)
+                    <td>{{$autor->name}}</td>
+                    @endforeach
                     <td>{{$libro -> isbn}}</td>
                     <td>{{$libro -> fecha_publicacion}}</td>
                     <td>{{$libro -> paginas}}</td>

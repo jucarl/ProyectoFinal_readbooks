@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use App\Models\Libro;
 
 class UsersController extends Controller
 {
@@ -14,9 +14,9 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         $users = User::all();
-        return view('users', compact('users'));
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -48,7 +48,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        //
+        
     }
 
     /**
@@ -74,9 +74,9 @@ class UsersController extends Controller
         $user->administration_level = $request->administration_level;
         $user->save();
 
-        session()->flash('flash_message', 'تم تعديل صلاحيات المستخدم بنجاح');
+        session()->flash('flash_message', 'ok');
 
-        return redirect(route('users.index'));
+        return redirect(route('user.profile'));
     }
 
     /**
@@ -89,8 +89,8 @@ class UsersController extends Controller
     {
         $user->delete();
 
-        session()->flash('flash_message', 'تم حذف المستخدم بنجاح');
+        session()->flash('flash_message', 'ok');
 
-        return redirect(route('users.index'));
+        return redirect(route('user.profile'));
     }
 }

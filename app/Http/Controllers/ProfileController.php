@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Libro;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-         $libros = Libro::all();//eager loading
+        $id = Auth::id();
+        $libros = Libro::where('autor_id',$id);
 
         return view('user.profile',compact('libros'));
     }

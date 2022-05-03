@@ -19,8 +19,9 @@ class LibroController extends Controller
     public function index()
     {
         $libros = Libro::all();//eager loading
-        $categoria = categoria::all();
-        return view('libros.indiceLibros',compact('libros'));
+        $categoria = Categoria::all();
+        $autor = User::all();
+        return view('libros.indiceLibros',compact('libros','categoria','autor'));
     }
 
     /**
@@ -91,9 +92,12 @@ class LibroController extends Controller
             $libro->archivo_libro = $url2; //URL para la BD
         }
 
-
-        //Guardar BD
+        //primero guardamos el libro
         $libro->save();
+        
+        //luego la relación
+        $userID = auth()->user()->id; 
+        $libro->autor()->attach($userID);
         //Redireccionar
         return redirect('/libros');
     }
@@ -106,7 +110,8 @@ class LibroController extends Controller
      */
     public function show(Libro $libro)
     {
-        return view('libros.detalleLibro',compact('libro'));
+        $categoria = Categoria::all();
+        return view('libros.detalleLibro',compact('libro','categoria'));
 
     }
 
@@ -125,7 +130,8 @@ class LibroController extends Controller
      */
     public function edit(Libro $libro)
     {
-        return view('libros.nuevoLibro', compact('libro'));
+        $categorias = Categoria::all();
+        return view('libros.nuevoLibro', compact('libro','categorias'));
 
     }
 
@@ -203,6 +209,6 @@ class LibroController extends Controller
     {
         Storage::disk('local')->delete($libro->portada);
         $libro->delete();
-        return redirect('/libros');
+        return redirect()->back()->with('alert_message', 'Book move to trash');
     }
 }

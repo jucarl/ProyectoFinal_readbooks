@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('libros', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->unsignedBigInteger('autor_id')->default(1); 
             //$table->string('autor', 80);
             //$table->string('editorial', 90);
             $table->string('isbn')->nullable(); //Puede quedar sin ISBN
@@ -35,9 +34,6 @@ return new class extends Migration
             ->on('categorias')
             ->onDelete('set null');
       
-            $table->foreign('autor_id')
-            ->references('id')
-            ->on('users');
 
         });
     }

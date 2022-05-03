@@ -12,21 +12,19 @@ class Libro extends Model
 
     public function categoria()
     {
-        return $this->belongsTo('App\Models\Categoria','categoria_id');
+        return $this->belongsTo(Categoria::class);
     }
 
     public function autor()
     {
-        return $this->belongsTo('App\Models\User','autor_id');
+        return $this->belongsToMany(User::class);
     }
 
-    //accesor, para usarse al mostrar la portada y el libro $libro = Libro::find(1);
-    //$NombreLibro = $libro->nombre;
-
-    protected function NombreLibro(): Attribute
+    //accesor, nombre del libro en mayusculas
+    public function titulomayus():Attribute
     {
         return Attribute::make(
-            get: fn ($value) => ucfirst($value),
+            get: fn ($value) => strtoupper($value),
         );
     }
 

@@ -29,27 +29,27 @@
 
             @csrf   <!--Proteccion contra ataque -->
             <label class="text-gray-700" for="libro">Nombre del Libro</label><br>
-            <input class="form-control" type="text" name="titulo" value="{{ old('titulo') }}{{isset($libro) ? $libro->titulo : ''}}">
+            <input class="form-control" type="text" name="titulo" value="{{ old('titulo') }}{{isset($libro) ? $libro->titulo: ''}}" minlength="1" maxlength="200" required >
             <br>
             <label class="text-gray-700" for="autor">Autor</label><br>
-            <input class="form-control" type="text" name="autor" value="{{ old('autor') }}{{isset($libro) ? $libro->autor_id : ''}}">
+            <input class="form-control" type="text" name="autor" value="{{ old('autor') }}{{isset($libro) ? $libro->autor_id : ''}}" minlength="2" maxlength="100" required pattern="[A-Za-z0-9]+" title="Letras y números. Tamaño mínimo: 2. Tamaño máximo: 100 ">
             <br>
             <label class="text-gray-700" for="editorial">ISBN</label><br>
-            <input class="form-control" type="text" name="isbn" value="{{ old('isbn') }}{{isset($libro) ? $libro->isbn : ''}}">
+            <input class="form-control" type="text" name="isbn" value="{{ old('isbn') }}{{isset($libro) ? $libro->isbn : ''}}" minlength="10" maxlength="10" pattern="[A-Za-z0-9]+" title="Letras y números. Tamaño:10 ">
             <br>
-            <label class="text-gray-700" for="publicacion">Fecha de Publicación</label><br>
-            <input class="form-control" type="numeric" name="publicacion" value="{{ old('publicacion') }}{{isset($libro) ? $libro->fecha_publicacion : ''}}">
+            <label class="text-gray-700" for="publicacion">Año de Publicación</label><br>
+            <input class="form-control" type="numeric" name="publicacion" value="{{ old('publicacion') }}{{isset($libro) ? $libro->fecha_publicacion : ''}}" required pattern="[0-9]{4}" title="Ingresa unicamente el año Ej. 1999">
             <br>
             <label class="text-gray-700" for="paginas">Numero de Páginas</label><br>
-            <input class="form-control" type="text" name="paginas" value="{{ old('paginas') }}{{isset($libro) ? $libro->paginas : ''}}">
+            <input class="form-control" type="text" name="paginas" value="{{ old('paginas') }}{{isset($libro) ? $libro->paginas : ''}}" required pattern="[0-9]+" title="Solo números">
             <br>
             <label class="text-gray-700" for="descripcion">Descripcion</label><br>
-            <textarea class="form-control" name="descripcion" id="descripcion" cols="10" rows="4">
+            <textarea class="form-control" name="descripcion" id="descripcion" cols="10" rows="4" minlength="5" maxlength="4000" required pattern="[A-Za-z0-9]+">
             {{ old('descripcion') }}{{isset($libro) ? $libro->descripcion : '' }}
             </textarea>
             <br>
             <label class="text-gray-700" for="tema">Tema</label><br>
-            <select class="form-control" name="tema" id="tema">
+            <select class="form-control" name="tema" id="tema" required >
                 @foreach( $categorias as $categoria )
                      <option value="{{ $categoria->nombre}}">{{ $categoria->nombre }}</option>
                 @endforeach
@@ -57,7 +57,7 @@
 
             <label for="portada_libro" class="col-md-4 col-form-label text-md-right">Portada</label>
             <div class="col-md-6">
-                <input id="portada_libro" accept="image/*" type="file" name="portada_libro" onchange="readCoverImage(this);" class="form-control @error('portada_libro') is-invalid @enderror" value="{{ old('portada_libro') }}" autocomplete="portada_libro">
+                <input id="portada_libro" accept="image/*" type="file" name="portada_libro" onchange="readCoverImage(this);" class="form-control @error('portada_libro') is-invalid @enderror" value="{{ old('portada_libro') }}{{isset($libro) ? $libro->portada_libro : '' }}" autocomplete="portada_libro" required>
 
                 @error('portada_libro')
                 <span class="invalid-feedback" role="alert">
@@ -70,7 +70,7 @@
 
             <label for="archivo_libro" class="form-label">Libro</label>
             <div class="col-md-6">
-                <input class="form-control" type="file" id="archivo_libro" name="archivo_libro" value="{{ old('archivo_libro') }}" accept=".doc, .docx, .txt, .pdf" >
+                <input class="form-control" type="file" id="archivo_libro" name="archivo_libro" value="{{ old('archivo_libro') }}{{isset($libro) ? $libro->archivo_libro : '' }}" accept=".txt, .pdf" required >
                 @error('archivo_libro')
                 <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

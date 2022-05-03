@@ -14,24 +14,19 @@ return new class extends Migration
     public function up()
     {
         Schema::create('libro_user', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->unsignedBigInteger('libro_id')->constrained();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('libro_id');
-            $table->boolean('leido')->default(FALSE);
-            $table->unsignedInteger('calificacion')->default(0);
-            $table->timestamps();
-            $table->softDeletes();//User::first()->delete(); borrar el primer usuario soft delete
+            
+            $table->foreign('libro_id')
+                  ->references('id')
+                  ->on('libros')
+                  ->onDelete('cascade');
 
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')
                   ->onDelete('cascade');
-
-            $table->foreign('libro_id')
-                  ->references('id')
-                  ->on('libros')
-                  ->onDelete('cascade');
-        });
+        });  
     }
 
     /**
@@ -41,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usuario_libro');
+        Schema::dropIfExists('libro_user');
     }
 };
