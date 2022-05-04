@@ -20,7 +20,7 @@ class Libro extends Model
     {
         return $this->belongsToMany(User::class);
     }
-
+    
     //accesor, nombre del libro en mayusculas
     public function titulomayus():Attribute
     {

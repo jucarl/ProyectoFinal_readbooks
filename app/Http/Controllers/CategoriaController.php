@@ -17,7 +17,7 @@ class CategoriaController extends Controller
     {
         //
         $categorias = Categoria::all();
-        return view('admin.users.index', compact('categorias'));
+        return view('user.categorias', compact('categorias'));
     }
 
     /**
@@ -51,7 +51,8 @@ class CategoriaController extends Controller
      */
     public function show($id)
     {
-        //
+        $categorias = Categoria::all();
+        return view('user.categorias');
     }
 
     /**

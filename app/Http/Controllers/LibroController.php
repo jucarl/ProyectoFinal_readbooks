@@ -6,7 +6,6 @@ use App\Models\Libro;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\User;
-use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
 
 class LibroController extends Controller
@@ -21,7 +20,7 @@ class LibroController extends Controller
         $libros = Libro::all();//eager loading
         $categoria = Categoria::all();
         $autor = User::all();
-        return view('libros.indiceLibros',compact('libros','categoria','autor'));
+        return view('Admin.indiceLibros',compact('libros','categoria','autor'));
     }
 
     /**
@@ -31,8 +30,9 @@ class LibroController extends Controller
      */
     public function create()
     {
+        
         $categorias = Categoria::all();
-        return view('libros.nuevoLibro',compact('categorias'));
+        return view('Admin.nuevoLibro',compact('categorias'));
     }
 
     /**
@@ -110,13 +110,15 @@ class LibroController extends Controller
      */
     public function show(Libro $libro)
     {
+        $this->authorize('show', [$libro]);
         $categoria = Categoria::all();
-        return view('libros.detalleLibro',compact('libro','categoria'));
+        return view('Admin.detalleLibro',compact('libro','categoria'));
 
     }
 
     public function showMyBooks()
     {
+        
         $libros = Libro::all();//eager loading
         return view('user.profile',compact('libros'));
 
@@ -130,8 +132,9 @@ class LibroController extends Controller
      */
     public function edit(Libro $libro)
     {
+        $this->authorize('update', $libro);
         $categorias = Categoria::all();
-        return view('libros.nuevoLibro', compact('libro','categorias'));
+        return view('Admin.nuevoLibro', compact('libro','categorias'));
 
     }
 
@@ -144,6 +147,8 @@ class LibroController extends Controller
      */
     public function update(Request $request, Libro $libro)
     {
+        $this->authorize('update', [$libro, $request->autor]);
+
         $request->validate([
             'titulo' => 'required|min:5|max:100',
             'autor' => 'required|exists:users,name',
@@ -152,8 +157,8 @@ class LibroController extends Controller
             'paginas' => 'required',
             'descripcion' => ['required','min:5'],
             'tema' => 'required|exists:categorias,nombre',
-            'portada' => 'image|required',
-            'archivo_libro' => 'required|mimes:pdf'
+            'portada_libro' => 'image',
+            'archivo_libro' => 'mimes:pdf'
         ]);
 
        // $libro = new Libro(); #Instancia clase
@@ -167,7 +172,7 @@ class LibroController extends Controller
         $libro->paginas = $request->paginas;
         $libro->descripcion = $request->descripcion;
         $libro->categoria_id = $datocateogria;
-        //$libro->portada = $request->file('portada_libro');;
+        $libro->portada = $request->file('portada_libro');;
 
          //Almacenar la imagen si se añade
          if($request->hasFile('portada_libro'));
@@ -207,6 +212,7 @@ class LibroController extends Controller
      */
     public function destroy(Libro $libro)
     {
+        $this->authorize('delete', $libro);
         Storage::disk('local')->delete($libro->portada);
         $libro->delete();
         return redirect()->back()->with('alert_message', 'Book move to trash');

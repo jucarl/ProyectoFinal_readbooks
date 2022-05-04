@@ -98,9 +98,13 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
+                            <!-- Revisar porque no me detecta la ruta user.profile -->
+                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                {{ __('Mi Perfil') }}
+                            </x-jet-dropdown-link>
 
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                                {{ __('Ajustes') }}
                             </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

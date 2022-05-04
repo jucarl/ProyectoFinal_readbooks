@@ -71,16 +71,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->fillable['name'];
     }
 
-    //Mutator para cifrar contraseña
-    public function setPasswordAttribute($value)
-{
-    $this->attributes['password'] = bcrypt($value);
-}
-
     //Mutator para poner dar formato a nombre
     public function setFirstNameAttribute($value)
     {
     $this->attributes['name'] = ucfirst(strtolower($value));
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin > 0 ? true : false;
     }
 
 }

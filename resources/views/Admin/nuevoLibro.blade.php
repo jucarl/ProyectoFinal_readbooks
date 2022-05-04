@@ -57,7 +57,7 @@
 
             <label for="portada_libro" class="col-md-4 col-form-label text-md-right">Portada</label>
             <div class="col-md-6">
-                <input id="portada_libro" accept="image/*" type="file" name="portada_libro" onchange="readCoverImage(this);" class="form-control @error('portada_libro') is-invalid @enderror" value="{{ old('portada_libro') }}{{isset($libro) ? $libro->portada_libro : '' }}" autocomplete="portada_libro" required>
+                <input id="portada_libro" accept="image/*" type="file" name="portada_libro" onchange="readCoverImage(this);" class="form-control @error('portada_libro') is-invalid @enderror" value="{{isset($libro) ? $libro->portada_libro : '' }}" >
 
                 @error('portada_libro')
                 <span class="invalid-feedback" role="alert">
@@ -70,7 +70,7 @@
 
             <label for="archivo_libro" class="form-label">Libro</label>
             <div class="col-md-6">
-                <input class="form-control" type="file" id="archivo_libro" name="archivo_libro" value="{{ old('archivo_libro') }}{{isset($libro) ? $libro->archivo_libro : '' }}" accept=".txt, .pdf" required >
+                <input class="form-control" type="file" id="archivo_libro" name="archivo_libro" value="{{isset($libro) ? $libro->archivo_libro : '' }}" accept=".txt, .pdf">
                 @error('archivo_libro')
                 <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

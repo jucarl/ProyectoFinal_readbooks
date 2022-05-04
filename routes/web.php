@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LibroController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\CategoriaController;
 use App\Models\User;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +23,13 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    if (Auth::check()) {
+        return view('dashboard');
+    }
+    else {
+        return view('auth.login');
+    }
+    
 });
 
 //Mandar a esta ruta para hacer logout
@@ -43,16 +50,17 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('/admin/users', function () {
-    return view('admin.users.index');
+    return view('admin.index');
 });
 
 
 
-/* Route::get('/profile', function () {
-    return view('user.profile');
-}); */
+Route::get('/profile', function () {
+    return view('profile.show');
+});
 
 Route::resource('/perfil', ProfileController::class);
 Route::resource('/autores', UsersController::class);
+Route::resource('/categorias', CategoriaController::class);
 //Route::get('/autores/{id}', 'UsersController@show');
 
