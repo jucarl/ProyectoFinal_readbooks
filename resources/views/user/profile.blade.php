@@ -2,7 +2,7 @@
     <!--Encabezado: foto, usuario, portada -->
     <div class="container">
 
-        
+
         <div class="mx-auto pt-5" style="width: 50%;" >
             <img src="{{auth()->user()->profile_photo_url}}" class="img-fluid rounded-circle" alt="20x20" data-holder-rendered="true" width="50%">
             <h1 class="text-center pt-3">{{ auth()->user()->name}}</h1>

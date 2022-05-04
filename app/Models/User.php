@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Attribute;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -65,10 +66,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Libro::class);
     }
 
-    /*public function name()
+    public function name()
     {
-        return $this->belongsTo(User::class);
-    }*/
+        return $this->fillable['name'];
+    }
 
     //Mutator para cifrar contraseña
     public function setPasswordAttribute($value)

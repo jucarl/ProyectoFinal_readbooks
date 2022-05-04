@@ -47,12 +47,9 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(User $autor)
     {
-        //$autor['id'] =  (string)$user->get('id');
-        $autor['name']  =  $user->get('name');
-        $autor['email'] =  $user->get('email');
-        $autor['photo_url'] =  $user->profile_photo_path;
+
         return view('user.autor',compact('autor'));
     }
 

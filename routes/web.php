@@ -38,7 +38,7 @@ Route::get('/logout', function (Request $request) {
 //Ruta para ver todos los libros, debe restringirse a administrador
 Route::resource('/libros', LibroController::class)->middleware('auth');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function (User $user) {
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
@@ -52,7 +52,7 @@ Route::get('/admin/users', function () {
     return view('user.profile');
 }); */
 
-Route::resource('/profile', ProfileController::class);
+Route::resource('/perfil', ProfileController::class);
 Route::resource('/autores', UsersController::class);
 //Route::get('/autores/{id}', 'UsersController@show');
 

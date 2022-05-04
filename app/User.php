@@ -71,4 +71,6 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Book')->withPivot(['bought'])->wherePivot('bought', true);
     }
+
+    
 }
