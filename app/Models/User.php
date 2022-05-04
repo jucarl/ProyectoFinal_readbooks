@@ -65,6 +65,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Libro::class);
     }
 
+    /*public function name()
+    {
+        return $this->belongsTo(User::class);
+    }*/
 
     //Mutator para cifrar contraseña
     public function setPasswordAttribute($value)

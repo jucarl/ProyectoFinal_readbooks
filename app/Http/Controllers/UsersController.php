@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Autor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Libro;
@@ -14,9 +15,9 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        $users = User::all();
-        return view('users.index', compact('users'));
+    {
+        $autores = User::all();
+        return view('user.autores', compact('autores'));
     }
 
     /**
@@ -48,7 +49,11 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        
+        //$autor['id'] =  (string)$user->get('id');
+        $autor['name']  =  $user->get('name');
+        $autor['email'] =  $user->get('email');
+        $autor['photo_url'] =  $user->profile_photo_path;
+        return view('user.autor',compact('autor'));
     }
 
     /**
