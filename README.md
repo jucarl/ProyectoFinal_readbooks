@@ -1,7 +1,7 @@
 <h1>CONSIDERACIONES</h1>
 <p>INTALAR JETSTREAM: <br>
-    > composer require laravel/jetstream <br>
-    > php artisan jetstream install livewire <br>
+    > <b><i>composer require laravel/jetstream</i></b> <br>
+    > <b><i>php artisan jetstream install livewire</i></b> <br>
 </p>
 
 
