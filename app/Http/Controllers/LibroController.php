@@ -116,10 +116,12 @@ class LibroController extends Controller
 
     }
 
+    //funcion para mostrar los libros del usuario actual
     public function showMyBooks()
     {
-        
-        $libros = Libro::all();//eager loading
+        $authorids= User::all()->lists('id');
+        $allBooks = Libro::autor($authorids)->get();
+        dd($allBooks);
         return view('user.profile',compact('libros'));
 
     }

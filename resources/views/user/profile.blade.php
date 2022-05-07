@@ -17,11 +17,11 @@
         <div class="container pt-5" >
 
             <div class="row row-cols-auto">
-            @foreach( $libros as $libro)
+            @foreach( $librosautor->Libros as $libro)
 
             <div class="col-sm-4" >
-
-                <a href="{{$libro->archivo_libro}}"{{$libroarchivo_libro}}>
+          
+                <a href="{{$libro->archivo_libro}}"{{$libro->archivo_libro}}>
                     <img src="{{$libro->portada}}" alt="" class="img-fluid" >
                 </a>
 

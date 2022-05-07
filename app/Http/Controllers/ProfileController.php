@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Libro;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,14 +14,15 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Libro $libro)
     {
         //
         $id = Auth::id();
-        //Todos los libros del usuario loggeado
-        $libros = Libro::where('autor_id',$id);
+        $librosautor = User::find($id);
+       
 
-        return view('user.profile',compact('libros'));
+        
+        return view('user.profile',compact('librosautor'));
     }
 
     /**

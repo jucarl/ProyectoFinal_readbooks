@@ -6,6 +6,7 @@ use App\Models\Autor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Libro;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -45,12 +46,15 @@ class UsersController extends Controller
      * Display the specified resource.
      *
      * @param  \App\User  $user
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $autor)
+    public function show(User $autor, $id)
     {
-
-        return view('user.autor',compact('autor'));
+        $librosautor = User::find($id);
+        //PENDIENTE HACER QUE SE VEAN LOS DATOS DEL AUTOR CORRECTO, YA SE VE EL LIBRO DEL AUTOR, FALTAN SUS DATOS
+        //dd($id,$librosautor);
+        return view('user.profile',compact('librosautor','autor'));
     }
 
     /**
@@ -73,12 +77,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->administration_level = $request->administration_level;
-        $user->save();
-
-        session()->flash('flash_message', 'ok');
-
-        return redirect(route('user.profile'));
+        
     }
 
     /**
@@ -89,10 +88,6 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
-
-        session()->flash('flash_message', 'ok');
-
-        return redirect(route('user.profile'));
+  
     }
 }

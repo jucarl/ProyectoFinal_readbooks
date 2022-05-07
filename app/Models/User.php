@@ -66,10 +66,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Libro::class);
     }
 
-    public function name()
-    {
-        return $this->fillable['name'];
-    }
 
     //Mutator para poner dar formato a nombre
     public function setFirstNameAttribute($value)

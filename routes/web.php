@@ -53,8 +53,6 @@ Route::get('/admin/users', function () {
     return view('admin.index');
 });
 
-
-
 Route::get('/profile', function () {
     return view('profile.show');
 });
@@ -62,5 +60,5 @@ Route::get('/profile', function () {
 Route::resource('/perfil', ProfileController::class);
 Route::resource('/autores', UsersController::class);
 Route::resource('/categorias', CategoriaController::class);
-//Route::get('/autores/{id}', 'UsersController@show');
+Route::get('/autores/{id}', 'UsersController@show');
 

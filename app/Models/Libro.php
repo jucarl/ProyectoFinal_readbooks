@@ -29,4 +29,9 @@ class Libro extends Model
         );
     }
 
+    public function scopeAuthorIds($query, $ids)
+    {
+        return $query->whereIn('user_id', $ids);
+    }
+
 }
