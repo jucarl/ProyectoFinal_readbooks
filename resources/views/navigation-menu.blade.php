@@ -99,7 +99,7 @@
                                 {{ __('Manage Account') }}
                             </div>
                             <!-- Revisar porque no me detecta la ruta user.profile -->
-                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                            <x-jet-dropdown-link href="{{ '/perfil' }}">
                                 {{ __('Mi Perfil') }}
                             </x-jet-dropdown-link>
 

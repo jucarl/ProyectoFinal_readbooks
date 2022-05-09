@@ -19,10 +19,10 @@ class ProfileController extends Controller
         //
         $id = Auth::id();
         $librosautor = User::find($id);
-       
 
-        
-        return view('user.profile',compact('librosautor'));
+
+
+        return view('user.perfil',compact('librosautor'));
     }
 
     /**

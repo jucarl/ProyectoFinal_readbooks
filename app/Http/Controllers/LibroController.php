@@ -30,7 +30,7 @@ class LibroController extends Controller
      */
     public function create()
     {
-        
+
         $categorias = Categoria::all();
         return view('Admin.nuevoLibro',compact('categorias'));
     }
@@ -94,9 +94,9 @@ class LibroController extends Controller
 
         //primero guardamos el libro
         $libro->save();
-        
+
         //luego la relación
-        $userID = auth()->user()->id; 
+        $userID = auth()->user()->id;
         $libro->autor()->attach($userID);
         //Redireccionar
         return redirect('/libros');
@@ -122,7 +122,7 @@ class LibroController extends Controller
         $authorids= User::all()->lists('id');
         $allBooks = Libro::autor($authorids)->get();
         dd($allBooks);
-        return view('user.profile',compact('libros'));
+        return view('user.perfil',compact('libros'));
 
     }
 

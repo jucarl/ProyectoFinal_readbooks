@@ -2,23 +2,22 @@
     <!--Encabezado: foto, usuario, portada -->
     <div class="container row mt-3 gx-4 gx-lg-5 align-items-center">
 
+
         <div class="col-md-6">
-            <img src="{{$librosautor->profile_photo_url}}" class="card-img-top mb-5 mb-md-0 rounded-circle">
+            <img src="{{auth()->user()->profile_photo_url}}" class="card-img-top mb-5 mb-md-0 rounded-circle">
         </div>
 
         <div class="col-md-6">
-             <h1 class="display-5 fw-bolder">{{ $librosautor->name}}</h1>
-                <div class="user-info">
-                    <p><i class="fas fa-envelope mr-2"></i> {{$librosautor->email}}</p>
-                    {{--<p><i class="fas fa-clock mr-2"></i> {{$autor->created_at? $autor->created_at->diffForHumans(): ''}} </p>--}}
-                </div>
-             <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+            <h1 class="display-5 fw-bolder">{{ auth()->user()->name}}</h1>
+               <div class="user-info">
+                   <p><i class="fas fa-envelope mr-2"></i> {{auth()->user()->email}}</p>
+                   <p><i class="fas fa-clock mr-2"></i> {{Auth::user()->created_at? Auth::user()->created_at->diffForHumans(): ''}} </p>
+               </div>
+            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+            <button type="button" class="btn btn-primary">Añadir obra</button>
+       </div>
 
-            
-        </div>
-
-
-        {{--Libros del autor seleccionado--}}
+        {{--Libros del autor loggeado--}}
         <div class="mt-5 py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5" >
                 <h2 class="fw-bolder mb-4">Obras</h2>
@@ -44,6 +43,7 @@
 
             </div>
         </div>
+
 
     </div>
 
