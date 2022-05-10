@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\categoria;
+use App\Models\Libro;
+use App\Models\User;
 use App\Models\Categoria as ModelsCategoria;
 use Illuminate\Http\Request;
 
@@ -27,9 +29,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
-        $categorias = Categoria::all();
-        return view('libros.nuevoLibro');
+       
     }
 
     /**
@@ -46,13 +46,13 @@ class CategoriaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  str  $nombre
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Categoria $categoria, $nombre)
     {
-        $categorias = Categoria::all();
-        return view('user.categorias');
+        
+        return view('user.categoria',compact('categoria','nombre'));
     }
 
     /**

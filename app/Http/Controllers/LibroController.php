@@ -99,6 +99,7 @@ class LibroController extends Controller
         $userID = auth()->user()->id;
         $libro->autor()->attach($userID);
         //Redireccionar
+        
         return redirect('/libros');
     }
 
@@ -110,9 +111,8 @@ class LibroController extends Controller
      */
     public function show(Libro $libro)
     {
-        $this->authorize('show', [$libro]);
         $categoria = Categoria::all();
-        return view('Admin.detalleLibro',compact('libro','categoria'));
+        return view('Admin.detalleLibro',compact('libro','categoria'))->with('success', '');
 
     }
 
@@ -203,7 +203,7 @@ class LibroController extends Controller
         $libro->save();
 
         //Redireccionar
-        return redirect('/libros');
+        return redirect('/libros')->with('success', 'Libro Actualizado correctamente.');
     }
 
     /**
@@ -217,6 +217,6 @@ class LibroController extends Controller
         $this->authorize('delete', $libro);
         Storage::disk('local')->delete($libro->portada);
         $libro->delete();
-        return redirect()->back()->with('alert_message', 'Book move to trash');
+        return redirect()->back()->with('success', 'Libro eliminado');
     }
 }

@@ -13,8 +13,11 @@
                    <p><i class="fas fa-envelope mr-2"></i> {{auth()->user()->email}}</p>
                    <p><i class="fas fa-clock mr-2"></i> {{Auth::user()->created_at? Auth::user()->created_at->diffForHumans(): ''}} </p>
                </div>
-            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
-            <button type="button" class="btn btn-primary">Añadir obra</button>
+               <p class="lead">{{$librosautor->about_me}}</p>
+                <a href="{{ route('create') }}" >
+                  <button type="button" href="{{ route('create') }}"  class="btn btn-primary">Añadir obra</button></a>
+                <a href="/profile" >
+                  <button type="button"  href="/profile" class="btn btn-primary">Configuración</button></a>
        </div>
 
         {{--Libros del autor loggeado--}}

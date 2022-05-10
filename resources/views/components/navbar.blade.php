@@ -11,7 +11,7 @@
     <title>BookStore</title>
 
     <style>
-        //.col-sm-4:hover img{opacity: 0.7;}
+        .col-sm-4:hover img{opacity: 0.7;}
         #contLibro{
             text-overflow: clip;
             overflow: hidden;
@@ -57,7 +57,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #405072c0 ">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">
+              <a class="navbar-brand" href="/dashboard">
                   <img src="assets/" alt="" width="20" height="25">
                   <x-slot name="logo">
                                 <x-jet-authentication-card-logo />

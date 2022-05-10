@@ -8,7 +8,7 @@
                 <div class="card text-center border-white mt-3 shadow-sm bg-secondary bg-gradient ">
 
                     <img src="" alt="" class="card-img-top rounded-circle mt-3 w-75 mx-auto ">
-                    <a class="card-title text-decoration-none  " href="autores/{{$categoria->id}}"><p class="text-black-50 fs-5">{{$categoria->nombre}}</p></a>
+                    <a class="card-title text-decoration-none  " href="categorias/{{$categoria->nombre}}"><p class="text-black-50 fs-5">{{$categoria->nombre}}</p></a>
 
                 </div>
             </div>

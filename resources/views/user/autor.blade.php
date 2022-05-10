@@ -12,7 +12,7 @@
                     <p><i class="fas fa-envelope mr-2"></i> {{$librosautor->email}}</p>
                     {{--<p><i class="fas fa-clock mr-2"></i> {{$autor->created_at? $autor->created_at->diffForHumans(): ''}} </p>--}}
                 </div>
-             <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+             <p class="lead">{{$librosautor->about_me}}</p>
 
             
         </div>

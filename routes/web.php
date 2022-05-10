@@ -51,14 +51,21 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('/admin/users', function () {
     return view('admin.index');
-});
+})->middleware('auth');
 
 Route::get('/profile', function () {
     return view('profile.show');
+})->middleware('auth');
+
+Route::get('create',[LibroController::class, 'create'])->name('create')->middleware('auth');
+
+Route::resource('/perfil', ProfileController::class)->middleware('auth');
+Route::resource('/autores', UsersController::class)->middleware('auth');
+Route::resource('/categorias', CategoriaController::class)->middleware('auth');
+
+Route::get('/categorias/{nombre}', function ($nombre) {
+    return 'profile '.$nombre;
 });
 
-Route::resource('/perfil', ProfileController::class);
-Route::resource('/autores', UsersController::class);
-Route::resource('/categorias', CategoriaController::class);
-Route::get('/autores/{id}', 'UsersController@show');
+Route::get('/autores/{id}', 'UsersController@show')->middleware('auth');
 

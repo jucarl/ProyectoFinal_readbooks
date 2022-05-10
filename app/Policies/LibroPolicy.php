@@ -22,8 +22,9 @@ class LibroPolicy
     public function before(User $user, $ability)
     {
         if ($user->isAdmin()) {
-            return true;
+            Response::allow();
         }
+    
     }
 
 
@@ -35,7 +36,7 @@ class LibroPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        dd($user);
     }
 
     /**
@@ -47,8 +48,10 @@ class LibroPolicy
      */
     public function view(User $user, Libro $libro)
     {
-        
+       
+    
     }
+    
 
     /**
      * Determine whether the user can create models.
@@ -72,7 +75,8 @@ class LibroPolicy
     public function update(User $user, Libro $libro)
     {
         $data = Arr::pluck($libro->autor,'id');
-        return strcmp($user->id,$data[0])==0
+        //dd($user,$libro,$data,strcmp($user->id,$data[0])=== 1);
+        return strcmp($user->id,$data[0]) === 0
             ? Response::allow()
             : Response::deny('Este libro no te pertenece.');
     }
@@ -87,8 +91,8 @@ class LibroPolicy
     public function delete(User $user, Libro $libro)
     {
         $data = Arr::pluck($libro->autor,'id');
-        //dd($user->id, $data[0],strcmp($user->id,$data[0]));
-        return strcmp($user->id,$data[0])==0
+        //dd($user,$libro,$data,strcmp($user->id,$data[0])=== 1);
+        return strcmp($user->id,$data[0]) === 0
             ? Response::allow()
             : Response::deny('Este libro no te pertenece.');
         
@@ -117,7 +121,8 @@ class LibroPolicy
     {
         
         $data = Arr::pluck($libro->autor,'id');
-        return strcmp($user->id,$data[0])==0
+        //dd($user,$libro,$data,strcmp($user->id,$data[0])=== 1);
+        return strcmp($user->id,$data[0]) === 0
             ? Response::allow()
             : Response::deny('Este libro no te pertenece.');
     }
