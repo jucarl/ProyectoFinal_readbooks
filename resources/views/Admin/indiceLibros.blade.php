@@ -47,15 +47,16 @@
                 <td>
                     <div class="d-grid gap-2 d-md-block">
                         <a href="libros/{{$libro ->id}}" type="button" class="btn btn-primary btn-sm">Detalle</a>
-                        <a href="libros/{{$libro ->id}}/edit" type="button" class="btn btn-success btn-sm">Editar</a>
-                    
-                        @can('delete', '$libro')
+                        @if (Auth::user()->can('update', $libro))
+                            <a href="libros/{{$libro ->id}}/edit" type="button" class="btn btn-success btn-sm">Editar</a>
+                        @endif
+                        @if (Auth::user()->can('delete', $libro))
                         <form action="/libros/{{$libro ->id}}" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="submit" value="Eliminar"  class="btn btn-danger btn-sm">
                         </form>
-                        @endcan
+                        @endif
                     </div>
 
 

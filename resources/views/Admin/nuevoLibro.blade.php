@@ -32,7 +32,7 @@
             <input class="form-control" type="text" name="titulo" value="{{ old('titulo') }}{{isset($libro) ? $libro->titulo: ''}}" minlength="1" maxlength="200" required >
             <br>
             <label class="text-gray-700" for="autor">Autor</label><br>
-            <input class="form-control" type="text" name="autor" disabled value="{{ old('autor') }}{{ auth()->user()->name}}"  title="Letras y números. Tamaño mínimo: 2. Tamaño máximo: 100 ">
+            <input class="form-control" type="text" name="autor" readonly="true" value="{{ old('autor') }}{{ auth()->user()->name}}"  title="Letras y números. Tamaño mínimo: 2. Tamaño máximo: 100 ">
             <br>
             <label class="text-gray-700" for="editorial">ISBN</label><br>
             <input class="form-control" type="text" name="isbn" value="{{ old('isbn') }}{{isset($libro) ? $libro->isbn : ''}}" minlength="10" maxlength="10" pattern="[A-Za-z0-9]+" title="Letras y números. Tamaño:10 ">
