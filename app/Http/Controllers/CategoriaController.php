@@ -17,7 +17,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        
         $categorias = Categoria::all();
         return view('user.categorias', compact('categorias'));
     }
@@ -49,10 +49,12 @@ class CategoriaController extends Controller
      * @param  str  $nombre
      * @return \Illuminate\Http\Response
      */
-    public function show(Categoria $categoria, $nombre)
+    public function show(Request $request,$nombre)
     {
-        
-        return view('user.categoria',compact('categoria','nombre'));
+        $idcategoria = Categoria::where('nombre',$nombre)->first()->id;
+        $libros = Libro::where('categoria_id',$idcategoria)->get();
+        //dd($libros,$idcategoria);
+        return view('user.categoria')->with(compact('libros'));
     }
 
     /**

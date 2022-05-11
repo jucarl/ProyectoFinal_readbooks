@@ -52,7 +52,6 @@ class UsersController extends Controller
     public function show(User $autor, $id)
     {
         $librosautor = User::find($id);//->toSql();
-        //PENDIENTE HACER QUE SE VEAN LOS DATOS DEL AUTOR CORRECTO, YA SE VE EL LIBRO DEL AUTOR, FALTAN SUS DATOS
         //dd($id,$librosautor);
         return view('user.autor',compact('librosautor','autor'));
     }

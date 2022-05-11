@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Libro extends Model
 {
     use softDeletes;
+    use HasFactory;
 
     public function categoria()
     {
