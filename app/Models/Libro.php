@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Libro extends Model
 {
     use softDeletes;
+    use HasFactory, Searchable;
+
+    const SEARCHABLE_FIELDS = ['id','titulo','autor'];
 
     public function categoria()
     {
@@ -20,7 +24,7 @@ class Libro extends Model
     {
         return $this->belongsToMany(User::class);
     }
-    
+
     //accesor, nombre del libro en mayusculas
     public function titulomayus():Attribute
     {
@@ -32,6 +36,11 @@ class Libro extends Model
     public function scopeAuthorIds($query, $ids)
     {
         return $query->whereIn('user_id', $ids);
+    }
+
+    public function toSearchableArray()
+    {
+        return  $this->only(self::SEARCHABLE_FIELDS);
     }
 
 }

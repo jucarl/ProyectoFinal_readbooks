@@ -5,6 +5,7 @@ use App\Http\Controllers\LibroController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CategoriaController;
+use App\Models\Libro;
 use App\Models\User;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +30,7 @@ Route::get('/', function () {
     else {
         return view('auth.login');
     }
-    
+
 });
 
 //Mandar a esta ruta para hacer logout
@@ -69,3 +70,8 @@ Route::get('/categorias/{nombre}', function ($nombre) {
 
 Route::get('/autores/{id}', 'UsersController@show')->middleware('auth');
 
+Route::get('/site-search',[LibroController::class, 'search']);
+
+Route::get('search-demo', function(){
+    return view('search');
+});

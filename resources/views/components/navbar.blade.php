@@ -7,7 +7,6 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <title>BookStore</title>
 
     <style>
@@ -93,10 +92,55 @@
                     <a class="nav-link" href="api/Libro">API JSON</a>
                   </li>
                 </ul>
-                <form class="d-flex">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+
+                <div class="d-flex">
+                  <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" id="search-bar">
+                  <ul id="results"></ul>
+                  <script>
+                     const resultsList = document.getElementById('results');
+                     function createLi(searchResult)
+                     {
+                         const li = document.createElement('li');
+                         const link = document.createElement('a');
+                         link.href = searchResult.view_link;
+                         link.textContent = searchResult.model;
+
+                         const h3 = document.createElement('h3');
+                         h3.appendChild(link);
+
+                         const span = document.createElement('span');
+
+                         span.textContent = searchResult.match;
+
+                         li.appendChild(h4);
+                         li.appendChild(span);
+
+                         return li;
+                     }
+
+                     document.getElementById('search-bar').addEventListener('input', function (event){
+                         event.preventDefault();
+                         const searched = event.target.value;
+
+                         fetch('/api/site-search?search=' + searched,{
+                             method: 'GET'
+                         }).then((response) => {
+                             return response.json();
+                         }).then((response)=>{
+                             console.log({response})
+                             const results = response.data;
+
+                             resultsList.innerHTML = '';
+
+                             results.forEach((result) => {
+                                resultsList.appendChild(createLi(result));
+                             });
+                         })
+                     })
+
+                  </script>
                   <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                </div>
 
                 {{-- <li class="nav-item">
                     <div class="dropdown w-75">

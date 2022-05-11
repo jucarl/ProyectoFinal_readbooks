@@ -11,6 +11,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -25,6 +26,10 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var string[]
      */
+    use HasFactory, Searchable;
+
+    const SEARCHABLE_FIELDS = ['id','name'];
+
     protected $fillable = [
         'name',
         'email',
@@ -76,6 +81,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdmin()
     {
         return $this->is_admin > 0 ? true : false;
+    }
+
+    public function toSearchableArray()
+    {
+        return  $this->only(self::SEARCHABLE_FIELDS);
     }
 
 }
