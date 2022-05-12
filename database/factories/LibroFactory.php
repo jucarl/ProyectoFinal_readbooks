@@ -10,7 +10,13 @@ use App\Models\Libro;
  */
 class LibroFactory extends Factory
 {
+   /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
     protected $model = Libro::class;
+
     /**
      * Define the model's default state.
      *
