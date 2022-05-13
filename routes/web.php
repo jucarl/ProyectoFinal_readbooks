@@ -47,11 +47,14 @@ Route::get('/logout', function (Request $request) {
 Route::resource('/libros', LibroController::class)->middleware('auth');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    if(auth()->user()->is_admin == 1)
+        return view('dashboard');
+    else
+        return view('user.index');
 })->name('dashboard');
 
-Route::get('/admin/users', function () {
-    return view('admin.index');
+Route::get('/inicio', function () {
+    return view('user.index');
 })->middleware('auth');
 
 Route::get('/profile', function () {

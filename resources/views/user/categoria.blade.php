@@ -1,17 +1,38 @@
 <x-navbar>
     <!--Encabezado: foto, usuario, portada -->
-    <div class="container row mt-3 gx-4 gx-lg-5 align-items-center">
-    @foreach ($libros as $libro) 
-        <h1 class="text-black-50 fs-3 mt-3">{{$libro->titulo}}</h1>
-        <div class="content">
-                <a href="{{url($libro->portada)}}"><img src="{{url($libro->portada)}}" alt="No image" width="100 px"></a></td>
-                <a class="title"  href="{{$libro->archivo_libro}}">{{$libro->titulo}}</a>
-                @foreach ($libro->autor as $autor)
-                <a class="username" href="/autores/{{$autor->name}}">{{$autor->name}}</a>
-                @endforeach    
-            <div class="description">{{$libro->descripcion}}</div>
-        </div>
-    @endforeach
+    {{-- {{dd($libros)}} --}}
+    <div class="py-5 px-5 bg-light">
+        <h1 class="text-blue-500 font-bold text-lg ">{{$nombre}}</h1>
+        @isset($libros)
+
+            <div class="container mt-5" >
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6">
+
+                    @foreach ($libros as $libro)
+                        <div class="col" >
+
+                            <div class="card shadow" >
+                                <h5 class="card-title text-center text-cute text-truncate mt-2 " title="{{$libro->titulo}}">{{$libro->titulo}}</h5>
+                                <div class="card-body py-2">
+                                        <a class="text-decoration-none" href="{{$libro->archivo_libro}}"{{$libro->archivo_libro}}>
+                                            <img src="{{$libro->portada}}" alt="" class="card-img-top px-3" id="Libro" > </a>
+                                        @foreach ($libro->autor as $autor)
+                                            <a class="text-decoration-none" href="autores/{{$autor->id}}"><p class="card-subtitle text-secondary  my-2">{{$autor->name}}</p></a>
+                                        @endforeach
+
+                                        {{-- <div class="description">{{$libro->descripcion}}</div> --}}
+                                </div>
+                            </div>
+                        </div>
+
+                    @endforeach
+
+                </div>
+            </div>
+        @else
+            <h1>Esta categoria aún no tiene libros :c</h1>
+
+        @endisset
 
 </x-navbar>
 

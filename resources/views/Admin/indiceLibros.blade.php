@@ -19,11 +19,11 @@
                 <th>Portada</th>
                 <th>Archivo</th>
                 <th>Acción</th>
-                
+
             </tr>
         </thead>
         <tbody>
-           
+
             @foreach($libros as $libro)
             <tr>
                 <td>{{$libro->titulo}}</td>
@@ -36,7 +36,7 @@
                 <td>{{$libro->descripcion}}</td>
                 <td>{{$libro->categoria->nombre}}</td>
                 <td><a href="{{url($libro->portada)}}"><img src="{{url($libro->portada)}}" alt="No image" width="30%" height="30%"></a></td>
-                
+
                 <td>
                     <a href="{{$libro->archivo_libro}}">
                         <div style="height:100%;width:100%">
@@ -47,16 +47,16 @@
                 <td>
                     <div class="d-grid gap-2 d-md-block">
                         <a href="libros/{{$libro ->id}}" type="button" class="btn btn-primary btn-sm">Detalle</a>
-                        @if (Auth::user()->can('update', $libro))
+                        {{-- @if (Auth::user()->can('update', $libro)) --}}
                             <a href="libros/{{$libro ->id}}/edit" type="button" class="btn btn-success btn-sm">Editar</a>
-                        @endif
-                        @if (Auth::user()->can('delete', $libro))
+                        {{-- @endif --}}
+                        {{-- @if (Auth::user()->can('delete', $libro)) --}}
                         <form action="/libros/{{$libro ->id}}" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="submit" value="Eliminar"  class="btn btn-danger btn-sm">
                         </form>
-                        @endif
+                        {{-- @endif --}}
                     </div>
 
 

@@ -41,7 +41,7 @@
         }
 
 
-        .card:hover #Libro {
+        #Libro:hover  {
              opacity: 0.3;
 
         }
@@ -57,7 +57,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #405072c0 ">
             <div class="container-fluid">
               <a class="navbar-brand" href="/dashboard">
-                  <img src="assets/" alt="" width="20" height="25">
+                  {{-- <img src="assets/" alt="" width="20" height="25"> --}}
                   <x-slot name="logo">
                                 <x-jet-authentication-card-logo />
                             </x-slot>
@@ -69,24 +69,16 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/dashboard">Inicio</a>
+                    <a class="nav-link active" aria-current="page" href="/inicio">Inicio</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/libros">Libros</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/autores">Autores</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/categorias">Categorías</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Libros
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="/autores">Autores</a></li>
-                      <li><a class="dropdown-item" href="#">Help</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="api/Libro">API JSON</a>
@@ -154,10 +146,10 @@
                         </ul>
                       </div>
                 </li> --}}
-                 <a href="/perfil">
-                    <img src="{{ Auth::user()->profile_photo_url }}" alt="" class="rounded-circle w-75 ms-2">
-                </a>
 
+                <a href="/perfil">
+                        <img src="{{ Auth::user()->profile_photo_url }}" alt="" class="rounded-circle ms-2" width="40px">
+                </a>
 
 
               </div>

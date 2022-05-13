@@ -17,8 +17,8 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        
-        $categorias = Categoria::all();
+
+        $categorias = Categoria::orderBy('nombre', 'ASC')->get();
         return view('user.categorias', compact('categorias'));
     }
 
@@ -29,7 +29,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-       
+
     }
 
     /**
@@ -54,7 +54,7 @@ class CategoriaController extends Controller
         $idcategoria = Categoria::where('nombre',$nombre)->first()->id;
         $libros = Libro::where('categoria_id',$idcategoria)->get();
         //dd($libros,$idcategoria);
-        return view('user.categoria')->with(compact('libros'));
+        return view('user.categoria')->with(compact('libros','nombre'));
     }
 
     /**

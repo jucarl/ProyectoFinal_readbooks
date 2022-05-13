@@ -28,10 +28,13 @@ class LibroController extends Controller
 
     public function index(Request $request)
     {
-        $libros = Libro::all();//eager loading
+        $libros = Libro::orderBy('titulo', 'ASC')->get();//eager loading
         $categoria = Categoria::all();
         $autor = User::all();
-        return view('Admin.indiceLibros',compact('libros','categoria','autor'));
+        if(auth()->user()->is_admin == 1)
+            return view('admin.indiceLibros',compact('libros','categoria','autor'));
+        else
+            return view('user.libros',compact('libros','categoria','autor'));
     }
 
     /**
