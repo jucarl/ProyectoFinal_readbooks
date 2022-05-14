@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
     <title>BookStore</title>
 
     <style>
@@ -86,7 +88,7 @@
                 </ul>
 
                 <div class="d-flex">
-                  <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" id="search-bar">
+                  <input class="form-control " type="text" placeholder="Search" aria-label="Search" id="search-bar">
                   <ul id="results"></ul>
                   <script>
                      const resultsList = document.getElementById('results');
@@ -134,22 +136,25 @@
                   <button class="btn btn-outline-success" type="submit">Search</button>
                 </div>
 
-                {{-- <li class="nav-item">
-                    <div class="dropdown w-75">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ Auth::user()->profile_photo_url }}" alt="" class="rounded-circle w-75 ms-2">
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li class="nav-item ms-3" style="list-style: none">
+                    <div class="dropdown w-50">
+                        <img class=" dropdown-toggle rounded-circle ms-2" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"
+                             src="{{ Auth::user()->profile_photo_url }}" alt="" width="40px">
+
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                           <li><a class="dropdown-item" href="/perfil">Mi Perfil</a></li>
                           <li><a class="dropdown-item" href="/profile">Ajustes</a></li>
-                          <li><a class="dropdown-item" href="/logout">Something else here</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="/logout">Cerrar Sesión</a></li>
                         </ul>
                       </div>
-                </li> --}}
+                </li>
 
-                <a href="/perfil">
+
+                {{-- <a href="/perfil">
                         <img src="{{ Auth::user()->profile_photo_url }}" alt="" class="rounded-circle ms-2" width="40px">
-                </a>
+                </a> --}}
 
 
               </div>

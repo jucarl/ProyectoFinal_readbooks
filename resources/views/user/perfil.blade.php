@@ -1,10 +1,10 @@
 <x-navbar>
     <!--Encabezado: foto, usuario, portada -->
-    <div class="container row mt-3 gx-4 gx-lg-5 align-items-center">
+    <div class="container row gx-4 gx-lg-5 align-items-center ">
 
 
-        <div class="col-md-6">
-            <img src="{{auth()->user()->profile_photo_url}}" class="card-img-top mb-5 mb-md-0 rounded-circle">
+        <div class="col-12 col-md-6 mt-5">
+            <img src="{{auth()->user()->profile_photo_url}}" class="card-img-top w-50 float-md-end mb-5  rounded-circle">
         </div>
 
         <div class="col-md-6">
