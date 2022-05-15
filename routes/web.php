@@ -53,6 +53,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
         return view('user.index');
 })->name('dashboard');
 
+Route::get('/dashboard', [LibroController::class, 'showRecents']);
+
 Route::get('/inicio', function () {
     return view('user.index');
 })->middleware('auth');
@@ -67,9 +69,7 @@ Route::resource('/perfil', ProfileController::class)->middleware('auth');
 Route::resource('/autores', UsersController::class)->middleware('auth');
 Route::resource('/categorias', CategoriaController::class)->middleware('auth');
 
-//Route::get('/categorias/{categoria}',function($categoria){
-//    return view('user.categoria')->with('categoria', $categoria);;
-//});
+
 
 Route::get('/autores/{id}', 'App\Http\Controllers\UsersController@show')->middleware('auth');
 

@@ -140,6 +140,15 @@ class LibroController extends Controller
 
     }
 
+    public function showRecents()
+    {
+        $libros =Libro::whereDate('created_at','<=',date('Y-m-d H:i:s'))->orderBy('created_at', 'desc')->get();
+        //dd($libros,date('Y-m-d H:i:s'));
+        $categoria = Categoria::all();
+        return view('user.index',compact('libros','categoria'))->with('success', '');
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -6,10 +6,14 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Libro;
+use App\Models\categoria;
+use App\Models\User;
 
 
 class LibroSeeder extends Seeder
 {
+
+    
     /**
      * Run the database seeds.
      *
@@ -17,7 +21,8 @@ class LibroSeeder extends Seeder
      */
     public function run()
     {
-        Libro::factory()->times(20)->forcategoria(['nombre' => 'Otro',])->hasautor(1, ['name' => 'Editor']) ->create();
+        Libro::factory()->count(1000)->create();  //Esto solo crea libros mas no la relación, no se porque
+        //Libro::factory()->count(2)->hascategoria(['nombre' => 'Otro',])->hasautores(1, ['name' => 'Editor']) ->create();
 
 
         // DB::table('libros')->insert(

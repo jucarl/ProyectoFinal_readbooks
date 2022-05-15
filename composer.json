@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "algolia/algoliasearch-client-php": "^3.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/fortify": "^1.12",
         "laravel/framework": "^9.2",

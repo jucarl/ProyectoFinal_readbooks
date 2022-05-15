@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Libro;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Libro>
@@ -31,8 +32,8 @@ class LibroFactory extends Factory
             'paginas' => $this->faker->randomNumber(4),
             'descripcion' => $this->faker->paragraph(),
             'categoria_id' => $this->faker->numberBetween(1, 16),
-            'portada' => 'Casual.jpg',
-            'archivo_libro' => 'test.pdf',
+            'portada' => '/storage/portadas/Libro.png',
+            'archivo_libro' => '/storage/libros/Prueba.pdf',
         ];
     }
 }
