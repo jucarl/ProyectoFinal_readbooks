@@ -135,7 +135,7 @@ class LibroController extends Controller
     {
         $authorids= User::all()->lists('id');
         $allBooks = Libro::autor($authorids)->get();
-        dd($allBooks);
+        //dd($allBooks);
         return view('user.perfil',compact('libros'));
 
     }

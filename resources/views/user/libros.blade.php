@@ -12,7 +12,7 @@
                         <div class="col" >
 
                             <div class="card shadow" >
-                                <a class="text-decoration-none" href="{{$libro->archivo_libro}}"{{$libro->archivo_libro}}>
+                                <a class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{$libro->id}}">
                                     <img src="{{$libro->portada}}" alt="" class="card-img-top px-3 py-2" id="Libro" > </a>
                                     <div class="card-body py-2">
                                         <h5 class="card-title text-center text-cute text-truncate " title="{{$libro->titulo}}">{{$libro->titulo}}</h5>
@@ -27,6 +27,7 @@
                             </div>
 
                         </div>
+                        @include('user.modelDetallesLibro')
 
                     @endforeach
 

@@ -1,9 +1,9 @@
 <x-navbar>
+    @php ($user = auth()->user()->name)
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-10 col-lg-12">
                 <div class="card">
-                    <div class="card-header"> </div>
 
                     <div class="card-body">
 
@@ -13,25 +13,34 @@
                                 <button type="submit" class="btn btn-secondary mb-2"></button>
                             </form>
                         </div>
-                        
+
+                        {{--Banner--}}
+                        <div class="row justify-content-center">
+                            <h3>Buen dia {{$user}} </h3>
+                            <figure>
+                                <img class="img-fluid" src="/storage/assets/img/banner.png" alt="">
+                            </figure>
+                        </div>
+
                         <div class="mt-5 py-5 bg-light">
                             <div class="container px-4 px-lg-5 mt-5">
                                 <h2 class="fw-bolder mb-4">Continuar Leyendo (Pendiente descubrir como poner estos)</h2>
                                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
                                     @foreach( $libros as $libro)
 
-                                    <div class="col-mb-5">
+                                        <div class="col-mb-5">
 
-                                        <div class="card h-100" id="contLibro">
-                                            <a class="text-decoration-none" href="{{$libro->archivo_libro}}" {{$libro->archivo_libro}}>
-                                                <img src="{{$libro->portada}}" alt="" class="card-img-top" id="Libro">
-                                                <p class="card-title text-center text-secondary ">{{$libro->titulo}}</p>
-                                                <p class="sinopsis w-75">{{$libro->descripcion}}</p>
-                                            </a>
+                                            <div class="card h-100" id="contLibro">
+                                                <a class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{$libro->id}}">
+                                                    <img src="{{$libro->portada}}" alt="" class="card-img-top" id="Libro">
+                                                    <p class="card-title text-center text-secondary ">{{$libro->titulo}}</p>
+
+                                                </a>
+                                            </div>
+
                                         </div>
 
-                                    </div>
-
+                                        @include('user.modelDetallesLibro')
                                     @endforeach
 
                                 </div>
@@ -45,18 +54,19 @@
                                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
                                     @foreach( $libros as $libro)
 
-                                    <div class="col-mb-5">
+                                        <div class="col-mb-5">
 
-                                        <div class="card h-100" id="contLibro">
-                                            <a class="text-decoration-none" href="{{$libro->archivo_libro}}" {{$libro->archivo_libro}}>
-                                                <img src="{{$libro->portada}}" alt="" class="card-img-top" id="Libro">
-                                                <p class="card-title text-center text-secondary ">{{$libro->titulo}}</p>
-                                                <p class="sinopsis w-75">{{$libro->descripcion}}</p>
-                                            </a>
+                                            <div class="card h-100" id="contLibro">
+                                                <a class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{$libro->id}}">
+                                                    <img src="{{$libro->portada}}" alt="" class="card-img-top" id="Libro">
+                                                    <p class="card-title text-center text-secondary ">{{$libro->titulo}}</p>
+
+                                                </a>
+                                            </div>
+
                                         </div>
-
-                                    </div>
-
+                                        {{-- MODEL: Ventana Emergente para detalle de libros --}}
+                                        @include('user.modelDetallesLibro')
                                     @endforeach
 
                                 </div>

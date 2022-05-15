@@ -30,14 +30,16 @@
                     <div class="col-mb-5" >
 
                         <div class="card h-100" id="contLibro">
-                            <a class="text-decoration-none" href="{{$libro->archivo_libro}}"{{$libro->archivo_libro}}>
+                            <a class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{$libro->id}}">
                                 <img src="{{$libro->portada}}" alt="" class="card-img-top" id="Libro" >
                                 <p class="card-title text-center text-secondary ">{{$libro->titulo}}</p>
-                                <p class="sinopsis w-75">{{$libro->descripcion}}</p>
                             </a>
                         </div>
 
                     </div>
+
+                    {{-- MODEL: Ventana Emergente para detalle de libros --}}
+                    @include('user.modelDetallesLibro')
 
                 @endforeach
 
