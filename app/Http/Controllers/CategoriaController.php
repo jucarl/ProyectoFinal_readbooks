@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\categoria;
 use App\Models\Libro;
 use App\Models\User;
-use App\Models\Categoria as ModelsCategoria;
 use Database\Seeders\CategoriaSeeder;
 use Illuminate\Http\Request;
 
@@ -31,9 +30,9 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Categoria $categoria)
     {
-
+        return view('Admin.nuevaCategoria');
     }
 
     /**
@@ -44,7 +43,18 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'Nombre' => 'required',
+            'descripcion' => 'required',
+        ]);
+
+        $categoria = new categoria;
+        $categoria->timestamps = false;
+        $categoria->nombre = $request->input('Nombre');
+        $categoria->descripcion = $request->input('descripcion');
+        $categoria->save();
+
+        return redirect('categorias');
     }
 
     /**
@@ -68,9 +78,9 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Categoria $categorias)
     {
-        //
+        return view('Admin.nuevaCategoria',compact('categorias'));
     }
 
     /**
@@ -91,8 +101,9 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Categoria $categoria)
     {
-        //
+        $categoria->delete();
+        return redirect()->back()->with('success', 'Usuario eliminado');
     }
 }

@@ -5,10 +5,6 @@ use App\Http\Controllers\LibroController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CategoriaController;
-use App\Models\Libro;
-use App\Models\User;
-use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +21,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     if (Auth::check()) {
-        return view('dashboard');
+        return view('/dashboard');
     }
     else {
         return view('auth.login');
@@ -46,25 +42,14 @@ Route::get('/logout', function (Request $request) {
 //Ruta para ver todos los libros, debe restringirse a administrador
 Route::resource('/libros', LibroController::class)->middleware('auth');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    if(auth()->user()->is_admin == 1)
-        return view('dashboard');
-    else
-        return view('user.index');
-})->name('dashboard');
+Route::get('/dashboard', [LibroController::class, 'showRecents'])->middleware('auth')->name('dashboard');
 
-Route::get('/dashboard', [LibroController::class, 'showRecents'])->middleware('auth');
-
-Route::get('/inicio', function () {
-    return view('user.index');
-})->middleware('auth');
 
 Route::get('create',[LibroController::class, 'create'])->name('create')->middleware('auth');
 
 Route::resource('/perfil', ProfileController::class)->middleware('auth');
 Route::resource('/autores', UsersController::class)->middleware('auth');
 Route::resource('/categorias', CategoriaController::class)->middleware('auth');
-
 
 
 Route::get('/autores/{id}', 'App\Http\Controllers\UsersController@show')->middleware('auth');

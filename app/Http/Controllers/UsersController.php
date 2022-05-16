@@ -31,7 +31,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.nuevoUsuario');
     }
 
     /**
@@ -42,7 +42,26 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6|confirmed'
+        ]);
+
+        if(request('is_admin') == 'on')
+            $admin = 1;
+        else
+            $admin = 0;
+
+        $user = new user;
+        $user->name = request('name');
+        $user->email = request('email');
+        $user->password = bcrypt(request('password'));
+        $user->is_admin = $admin;
+
+        $user->save();
+
+        return back();
     }
 
     /**
@@ -67,7 +86,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('Admin.nuevoUsuario',compact('user'));
     }
 
     /**
@@ -79,7 +98,20 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->validate(request(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6|confirmed'
+        ]);
 
+        $user->name = request('name');
+        $user->email = request('email');
+        $user->password = bcrypt(request('password'));
+        $user->is_admin = request('is_admin');
+
+        $user->save();
+
+        return back();
     }
 
     /**
@@ -90,6 +122,7 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-
+        $user->delete();
+        return redirect()->back()->with('success', 'Categoría eliminada');
     }
 }

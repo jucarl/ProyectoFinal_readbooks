@@ -17,6 +17,8 @@ use Illuminate\Support\Str;
 use Symfony\Component\Finder\SplFileInfo;
 
 
+
+
 class LibroController extends Controller
 {
     /**
@@ -28,13 +30,13 @@ class LibroController extends Controller
 
     public function index(Request $request)
     {
-        $libros = Libro::orderBy('titulo', 'ASC')->get();//eager loading
+        $libros = Libro::orderBy('titulo', 'ASC')->get(); //eager loading
         $categoria = Categoria::all();
         $autor = User::all();
-        if(auth()->user()->is_admin == 1)
-            return view('admin.indiceLibros',compact('libros','categoria','autor'));
+        if (auth()->user()->is_admin == 1)
+            return view('admin.indiceLibros', compact('libros', 'categoria', 'autor'));
         else
-            return view('user.libros',compact('libros','categoria','autor'));
+            return view('user.libros', compact('libros', 'categoria', 'autor'));
     }
 
     /**
@@ -46,7 +48,7 @@ class LibroController extends Controller
     {
 
         $categorias = Categoria::all();
-        return view('Admin.nuevoLibro',compact('categorias'));
+        return view('Admin.nuevoLibro', compact('categorias'));
     }
 
     /**
@@ -58,26 +60,26 @@ class LibroController extends Controller
     public function store(Request $request)
     {
         $autor = User::all();
-          //Validacion y limpieza
-          $validatedData = $request->validate([
+        //Validacion y limpieza
+        $validatedData = $request->validate([
             'titulo' => 'required|min:5|max:100',
             'autor' => 'required|exists:users,name',
             'isbn' => 'required',
             'publicacion' => 'required',
             'paginas' => 'required',
-            'descripcion' => ['required','min:5'],
+            'descripcion' => ['required', 'min:5'],
             'tema' => 'required|exists:categorias,nombre',
             'portada_libro' => 'image|required',
             'archivo_libro' => 'required|mimes:pdf'
         ]);
 
         $libro = new Libro(); #Instancia clase
-        $datoautor =User::where('name',$request->autor)->value('name');
-        $datocateogria =Categoria::where('nombre',$request->tema)->value('id');
+        $datoautor = User::where('name', $request->autor)->value('name');
+        $datocateogria = Categoria::where('nombre', $request->tema)->value('id');
 
 
         $libro->titulo = $request->titulo; #Invocar atributos (col dentro de tabla)
-        $libro -> $datoautor;
+        $libro->$datoautor;
         $libro->isbn = $request->isbn;
         $libro->fecha_publicacion = $request->publicacion;
         $libro->paginas = $request->paginas;
@@ -85,22 +87,20 @@ class LibroController extends Controller
         $libro->categoria_id = $datocateogria;
 
         //Almacenar la imagen si se añade
-        if($request->hasFile('portada_libro'));
-        {
+        if ($request->hasFile('portada_libro')); {
             $imagenes = $request->file('portada_libro');
-            $imgname = $libro->titulo.time().'.'.$imagenes->getClientOriginalExtension();
-            $imagenes= $imagenes->storeAs('public/portadas',$imgname);
+            $imgname = $libro->titulo . time() . '.' . $imagenes->getClientOriginalExtension();
+            $imagenes = $imagenes->storeAs('public/portadas', $imgname);
             $url = Storage::url($imagenes);
 
             $libro->portada = $url; //URL para la BD
         }
 
         //Almacenar el libro si se añade
-        if($request->hasFile('archivo_libro'));
-        {
+        if ($request->hasFile('archivo_libro')); {
             $archivo = $request->file('archivo_libro');
-            $filename = $libro->titulo.time().'.'.$archivo->getClientOriginalExtension();
-            $archivo = $archivo->storeAs('public/libros',$filename);
+            $filename = $libro->titulo . time() . '.' . $archivo->getClientOriginalExtension();
+            $archivo = $archivo->storeAs('public/libros', $filename);
             $url2 = Storage::url($archivo);
 
             $libro->archivo_libro = $url2; //URL para la BD
@@ -126,27 +126,30 @@ class LibroController extends Controller
     public function show(Libro $libro)
     {
         $categoria = Categoria::all();
-        return view('Admin.detalleLibro',compact('libro','categoria'))->with('success', '');
-
+        return view('Admin.detalleLibro', compact('libro', 'categoria'))->with('success', '');
     }
+
+ 
 
     //funcion para mostrar los libros del usuario actual
     public function showMyBooks()
     {
-        $authorids= User::all()->lists('id');
+
+        $authorids = User::all()->lists('id');
         $allBooks = Libro::autor($authorids)->get();
         //dd($allBooks);
-        return view('user.perfil',compact('libros'));
-
+        return view('user.perfil', compact('libros'));
     }
 
     public function showRecents()
     {
-        $libros =Libro::whereDate('created_at','<=',date('Y-m-d H:i:s'))->orderBy('created_at', 'desc')->get();
+        if (auth()->user()->is_admin == 1)
+            return view('dashboard');
+
+        $libros = Libro::whereDate('created_at', '<=', date('Y-m-d H:i:s'))->orderBy('created_at', 'desc')->get();
         //dd($libros,date('Y-m-d H:i:s'));
         $categoria = Categoria::all();
-        return view('user.index',compact('libros','categoria'))->with('success', '');
-
+        return view('user.index', compact('libros', 'categoria'))->with('success', '');
     }
 
     /**
@@ -159,8 +162,7 @@ class LibroController extends Controller
     {
         $this->authorize('update', $libro);
         $categorias = Categoria::all();
-        return view('Admin.nuevoLibro', compact('libro','categorias'));
-
+        return view('Admin.nuevoLibro', compact('libro', 'categorias'));
     }
 
     /**
@@ -180,18 +182,18 @@ class LibroController extends Controller
             'isbn' => 'required',
             'publicacion' => 'required',
             'paginas' => 'required',
-            'descripcion' => ['required','min:5'],
+            'descripcion' => ['required', 'min:5'],
             'tema' => 'required|exists:categorias,nombre',
             'portada_libro' => 'image',
             'archivo_libro' => 'mimes:pdf'
         ]);
 
-       // $libro = new Libro(); #Instancia clase
-       $datoautor =User::where('name',$request->autor)->value('name');
-       $datocateogria =Categoria::where('nombre',$request->tema)->value('id');
+        // $libro = new Libro(); #Instancia clase
+        $datoautor = User::where('name', $request->autor)->value('name');
+        $datocateogria = Categoria::where('nombre', $request->tema)->value('id');
 
         $libro->titulo = $request->titulo; #Invocar atributos (col dentro de tabla)
-        $libro -> $datoautor;
+        $libro->$datoautor;
         $libro->isbn = $request->isbn;
         $libro->fecha_publicacion = $request->publicacion;
         $libro->paginas = $request->paginas;
@@ -199,29 +201,27 @@ class LibroController extends Controller
         $libro->categoria_id = $datocateogria;
         $libro->portada = $request->file('portada_libro');;
 
-         //Almacenar la imagen si se añade
-         if($request->hasFile('portada_libro'));
-         {
+        //Almacenar la imagen si se añade
+        if ($request->hasFile('portada_libro')); {
             Storage::disk('local')->delete($libro->portada);
-             $imagenes = $request->file('portada_libro');
-             $imgname = $libro->titulo.time().'.'.$imagenes->getClientOriginalExtension();
-             $imagenes= $imagenes->storeAs('public/portadas',$imgname);
-             $url = Storage::url($imagenes);
+            $imagenes = $request->file('portada_libro');
+            $imgname = $libro->titulo . time() . '.' . $imagenes->getClientOriginalExtension();
+            $imagenes = $imagenes->storeAs('public/portadas', $imgname);
+            $url = Storage::url($imagenes);
 
-             $libro->portada = $url; //URL para la BD
-         }
+            $libro->portada = $url; //URL para la BD
+        }
 
-         //Almacenar el libro si se añade
-         if($request->hasFile('archivo_libro'));
-         {
+        //Almacenar el libro si se añade
+        if ($request->hasFile('archivo_libro')); {
             Storage::disk('local')->delete($libro->archivo_libro);
-             $archivo = $request->file('archivo_libro');
-             $filename = $libro->titulo.time().'.'.$archivo->getClientOriginalExtension();
-             $archivo = $archivo->storeAs('public/libros',$filename);
-             $url2 = Storage::url($archivo);
+            $archivo = $request->file('archivo_libro');
+            $filename = $libro->titulo . time() . '.' . $archivo->getClientOriginalExtension();
+            $archivo = $archivo->storeAs('public/libros', $filename);
+            $url2 = Storage::url($archivo);
 
-             $libro->archivo_libro = $url2; //URL para la BD
-         }
+            $libro->archivo_libro = $url2; //URL para la BD
+        }
         //Guardar BD
         $libro->save();
 
@@ -246,7 +246,7 @@ class LibroController extends Controller
 
     public function modelNamespacePrefix()
     {
-        return app()->getNamespace().'Models\\';
+        return app()->getNamespace() . 'Models\\';
     }
 
     public function search(Request $request)
@@ -255,36 +255,34 @@ class LibroController extends Controller
         //$toExclude =
 
         //Carga de modelos en directorio
-        $files = File::allFiles(app()->basePath().'/app/Models');
+        $files = File::allFiles(app()->basePath() . '/app/Models');
 
-        $results = collect($files)->map(function(SplFileInfo $file) {
+        $results = collect($files)->map(function (SplFileInfo $file) {
             $filename = $file->getRelativePathname();
-            if(substr($filename, -4) !== '.php')
+            if (substr($filename, -4) !== '.php')
                 return null;
 
             return substr($filename, 0, -4);
-
-        })->filter(function(?string $classname){
+        })->filter(function (?string $classname) {
             //Filtrar solo los modelos que usan "search()"
-            if($classname === null){
+            if ($classname === null) {
                 return false;
             }
 
-            $reflection = new \ReflectionClass($this->modelNamespacePrefix(). 'Models\\' . $classname);
+            $reflection = new \ReflectionClass($this->modelNamespacePrefix() . 'Models\\' . $classname);
 
             $isModel = $reflection->isSubclassOf(Model::class);
 
             $searchable = $reflection->hasMethod('search');
 
             return $isModel && $searchable;
+        })->map(function ($classname) use ($keyword) {
 
-        })->map(function ($classname) use($keyword){
+            $model = app($this->modelNamespacePrefix() . $classname);
 
-            $model = app( $this->modelNamespacePrefix().$classname);
-
-            $fields = array_filter($model::SEARCHABLE_FIELDS, fn($field) => $field !== 'id');
+            $fields = array_filter($model::SEARCHABLE_FIELDS, fn ($field) => $field !== 'id');
             //Por cada modelo llamaremos a search() scout
-            return $model::search($keyword)->get()->map(function($modelRecord) use ($model,$fields,$keyword,$classname){
+            return $model::search($keyword)->get()->map(function ($modelRecord) use ($model, $fields, $keyword, $classname) {
 
 
 
@@ -293,8 +291,8 @@ class LibroController extends Controller
                 $fieldsData = $modelRecord->only($fields);
 
                 $serializedValues =  collect($fieldsData)->join(' ');
-                $searchPos = strpos(strtolower($serializedValues), strtolower($keyword) );
-                if($searchPos !== false){
+                $searchPos = strpos(strtolower($serializedValues), strtolower($keyword));
+                if ($searchPos !== false) {
                     $start =  $searchPos - self::BUFFER;
                     $start = $start < 0 ? 0 : $start;
                     $length = strlen($keyword) + 2 * self::BUFFER;
@@ -307,20 +305,17 @@ class LibroController extends Controller
                     $sliced = $shouldAddPostfix ? $sliced . '...' : $sliced;
                 }
 
-                $modelRecord->setAttribute('match', $sliced ?? substr($serializedValues, 0, 20). '...');
+                $modelRecord->setAttribute('match', $sliced ?? substr($serializedValues, 0, 20) . '...');
                 //2. Nombre del modelo
                 $modelRecord->setAttribute('model', $classname);
                 //3. Enlace de la vista, url para acceder al recurso
                 $modelRecord->setAttribute('view_link', $this->resolveModelViewLink($modelRecord));
                 return $modelRecord;
-
             });
-
         })->flatten(1);
 
         dd($results);
         return SiteSearchResource::collection($results);
-
     }
 
     public function resolveModelViewLink(Model $model)
@@ -331,14 +326,13 @@ class LibroController extends Controller
         ];
 
         $modelClass = get_class($model);
-        if(Arr::has($mapping,$modelClass)){
-            return URL::to(str_replace('{id}',$model->id, $mapping[$modelClass]));
+        if (Arr::has($mapping, $modelClass)) {
+            return URL::to(str_replace('{id}', $model->id, $mapping[$modelClass]));
         }
 
         $modelName = Str::plural(Arr::last(explode('\\', $modelClass)));
         $modelName = Str::kebab(Str::camel($modelName));
 
         return URL::to('/' . $modelName . '/' . $model->id);
-
     }
 }
