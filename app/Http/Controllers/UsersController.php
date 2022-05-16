@@ -18,7 +18,10 @@ class UsersController extends Controller
     public function index()
     {
         $autores = User::all();
-        return view('user.autores', compact('autores'));
+        if (Auth::user()->is_admin == 1)
+            return view('Admin.indiceUsers', compact('autores'));
+        else
+            return view('user.autores', compact('autores'));
     }
 
     /**

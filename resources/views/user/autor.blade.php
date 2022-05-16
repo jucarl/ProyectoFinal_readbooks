@@ -13,7 +13,8 @@
                 {{--<p><i class="fas fa-clock mr-2"></i> {{$autor->created_at? $autor->created_at->diffForHumans(): ''}} </p>--}}
             </div>
             <p class="lead">{{$librosautor->about_me}}</p>
-
+            @include('user.mercadopago')
+            
 
         </div>
 

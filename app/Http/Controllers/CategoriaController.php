@@ -6,6 +6,7 @@ use App\Models\categoria;
 use App\Models\Libro;
 use App\Models\User;
 use App\Models\Categoria as ModelsCategoria;
+use Database\Seeders\CategoriaSeeder;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
@@ -19,7 +20,10 @@ class CategoriaController extends Controller
     {
 
         $categorias = Categoria::orderBy('nombre', 'ASC')->get();
-        return view('user.categorias', compact('categorias'));
+        if(auth()->user()->is_admin == 1) //si es admin
+            return view('Admin.indiceCategoria',compact('categorias'));
+        else
+            return view('user.categorias', compact('categorias'));
     }
 
     /**
@@ -51,6 +55,7 @@ class CategoriaController extends Controller
      */
     public function show(Request $request,$nombre)
     {
+
         $idcategoria = Categoria::where('nombre',$nombre)->first()->id;
         $libros = Libro::where('categoria_id',$idcategoria)->get();
         //dd($libros,$idcategoria);
