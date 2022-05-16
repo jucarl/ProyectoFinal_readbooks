@@ -53,10 +53,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
         return view('user.index');
 })->name('dashboard');
 
-Route::get('/inicio', [LibroController::class, 'showRecents'])->middleware('auth');
+Route::get('/dashboard', [LibroController::class, 'showRecents'])->middleware('auth');
 
-Route::get('/profile', function () {
-    return view('profile.show');
+Route::get('/inicio', function () {
+    return view('user.index');
 })->middleware('auth');
 
 Route::get('create',[LibroController::class, 'create'])->name('create')->middleware('auth');

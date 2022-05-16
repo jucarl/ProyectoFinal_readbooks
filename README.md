@@ -15,3 +15,10 @@
     <b><i>php artisan vendor:publish --tag=jetstream-views</i></b>
 </p>
 
+<h2>Adición Metodo de Pago</h2>
+<p>Instala SDK de Mercado Pago para PHP <br>
+    <b><i>composer require "mercadopago/dx-php"</i></b>
+</p>
+
+
+
