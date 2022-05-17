@@ -140,10 +140,11 @@ class LibroController extends Controller
         if (auth()->user()->is_admin == 1)
             return view('dashboard');
 
+        $descubrir = Libro::inRandomOrder()->limit(5)->get();
         $libros = Libro::whereDate('created_at', '<=', date('Y-m-d H:i:s'))->orderBy('created_at', 'desc')->get();
         //dd($libros,date('Y-m-d H:i:s'));
         $categoria = Categoria::all();
-        return view('user.index', compact('libros', 'categoria'))->with('success', '');
+        return view('user.index', compact('libros', 'categoria','descubrir'))->with('success', '');
     }
 
     /**

@@ -24,9 +24,9 @@
 
                         <div class="mt-5 py-5 bg-light">
                             <div class="container px-4 px-lg-5 mt-5">
-                                <h2 class="fw-bolder mb-4">Continuar Leyendo (Pendiente descubrir como poner estos)</h2>
+                                <h2 class="fw-bolder mb-4">Descubre tu proxima lectura!</h2>
                                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
-                                    @foreach( $libros as $libro)
+                                    @foreach( $descubrir as $libro)
 
                                         <div class="col-mb-5">
 
