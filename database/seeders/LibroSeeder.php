@@ -21,7 +21,9 @@ class LibroSeeder extends Seeder
      */
     public function run()
     {
-        Libro::factory()->count(1000)->create();  //Esto solo crea libros mas no la relación, no se porque
+        Libro::factory()->count(2)->hasautor(2)->create();
+
+        //Libro::factory()->count(3)->create();
         //Libro::factory()->count(2)->hascategoria(['nombre' => 'Otro',])->hasautores(1, ['name' => 'Editor']) ->create();
 
 

@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\SiteSearchResource;
+
 use App\Models\Libro;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
-use PhpParser\ErrorHandler\Collecting;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Str;
-use Symfony\Component\Finder\SplFileInfo;
+
 
 
 
@@ -243,96 +237,4 @@ class LibroController extends Controller
         return redirect()->back()->with('success', 'Libro eliminado');
     }
 
-
-    public function modelNamespacePrefix()
-    {
-        return app()->getNamespace() . 'Models\\';
-    }
-
-    public function search(Request $request)
-    {
-        $keyword = $request->search;
-        //$toExclude =
-
-        //Carga de modelos en directorio
-        $files = File::allFiles(app()->basePath() . '/app/Models');
-
-        $results = collect($files)->map(function (SplFileInfo $file) {
-            $filename = $file->getRelativePathname();
-            if (substr($filename, -4) !== '.php')
-                return null;
-
-            return substr($filename, 0, -4);
-        })->filter(function (?string $classname) {
-            //Filtrar solo los modelos que usan "search()"
-            if ($classname === null) {
-                return false;
-            }
-
-            $reflection = new \ReflectionClass($this->modelNamespacePrefix() . 'Models\\' . $classname);
-
-            $isModel = $reflection->isSubclassOf(Model::class);
-
-            $searchable = $reflection->hasMethod('search');
-
-            return $isModel && $searchable;
-        })->map(function ($classname) use ($keyword) {
-
-            $model = app($this->modelNamespacePrefix() . $classname);
-
-            $fields = array_filter($model::SEARCHABLE_FIELDS, fn ($field) => $field !== 'id');
-            //Por cada modelo llamaremos a search() scout
-            return $model::search($keyword)->get()->map(function ($modelRecord) use ($model, $fields, $keyword, $classname) {
-
-
-
-                //por cada resultado de busqueda, buscaremos incluir
-                //1. texto que coincide
-                $fieldsData = $modelRecord->only($fields);
-
-                $serializedValues =  collect($fieldsData)->join(' ');
-                $searchPos = strpos(strtolower($serializedValues), strtolower($keyword));
-                if ($searchPos !== false) {
-                    $start =  $searchPos - self::BUFFER;
-                    $start = $start < 0 ? 0 : $start;
-                    $length = strlen($keyword) + 2 * self::BUFFER;
-                    $sliced = substr($serializedValues, $start, $length);
-
-                    $shouldAddPrefix = $start > 0;
-                    $shouldAddPostfix = ($start + $length) < strlen($serializedValues);
-
-                    $sliced = $shouldAddPrefix ? '...' . $sliced : $sliced;
-                    $sliced = $shouldAddPostfix ? $sliced . '...' : $sliced;
-                }
-
-                $modelRecord->setAttribute('match', $sliced ?? substr($serializedValues, 0, 20) . '...');
-                //2. Nombre del modelo
-                $modelRecord->setAttribute('model', $classname);
-                //3. Enlace de la vista, url para acceder al recurso
-                $modelRecord->setAttribute('view_link', $this->resolveModelViewLink($modelRecord));
-                return $modelRecord;
-            });
-        })->flatten(1);
-
-        dd($results);
-        return SiteSearchResource::collection($results);
-    }
-
-    public function resolveModelViewLink(Model $model)
-    {
-        //retornara un URL: /{model-name}/{model-id}
-        $mapping = [
-            \App\Models\Libro::class => 'libros/view/{id}'
-        ];
-
-        $modelClass = get_class($model);
-        if (Arr::has($mapping, $modelClass)) {
-            return URL::to(str_replace('{id}', $model->id, $mapping[$modelClass]));
-        }
-
-        $modelName = Str::plural(Arr::last(explode('\\', $modelClass)));
-        $modelName = Str::kebab(Str::camel($modelName));
-
-        return URL::to('/' . $modelName . '/' . $model->id);
-    }
 }

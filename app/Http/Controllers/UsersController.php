@@ -84,8 +84,9 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $user,$id)
     {
+        $user = User::find($id);
         return view('Admin.nuevoUsuario',compact('user'));
     }
 
@@ -96,22 +97,30 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user,$id)
     {
+        $user = User::find($id);
+        
         $this->validate(request(), [
             'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed'
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'password' => 'same:password_confirmation'
         ]);
+        
+        if(request('is_admin')== null)
+            $user->is_admin = False;
+            
+        else
+            $user->is_admin = True;
+
 
         $user->name = request('name');
         $user->email = request('email');
         $user->password = bcrypt(request('password'));
-        $user->is_admin = request('is_admin');
 
         $user->save();
 
-        return back();
+        return redirect()->back()->with('success', 'Usuario Modificado');
     }
 
     /**
@@ -120,9 +129,10 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $user, $id)
     {
+        $user = User::find($id);
         $user->delete();
-        return redirect()->back()->with('success', 'Categoría eliminada');
+        return redirect()->back()->with('success', 'Usuario Eliminado');
     }
 }

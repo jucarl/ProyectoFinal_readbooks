@@ -20,5 +20,8 @@
     <b><i>composer require "mercadopago/dx-php"</i></b>
 </p>
 
-
-
+<h2>Correr factories</h2>
+<p>Factory Libros <br>
+ <b><i>php artisan db:seed --class=LibroSeeder</i></b>
+<p>Factory Usuarios <br>
+<b><i>php artisan db:seed --class=UserSeeder</i></b>

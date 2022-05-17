@@ -20,6 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //JSON response
-Route::get('/Libro', function () {
-    return LibroResource::collection(Libro::all());
+Route::get('/Libro/{id}', function ($id) {
+    return new LibroResource(Libro::findOrFail($id));
 });

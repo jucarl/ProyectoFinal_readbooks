@@ -23,12 +23,12 @@
 </div>
 @endif
 @isset($user)
-    <form action="/autores/{{$user->id }}/edit" method="post" class="" enctype="multipart/form-data"> <!----actualizar-->
+    <form action="/autores/{{$user->id }}" method="post" class="" enctype="multipart/form-data"> <!----actualizar-->
             @method ('PATCH')
     @else
     <form action="{{ route('autores.store') }}" method="POST">
 @endisset
-        @csrf
+    @csrf
     <div class="form-group">
     <label for="name">Nombre:</label>
     <input type="text" name="name"  value="{{isset($user) ? $user->name : '' }}" />
@@ -54,7 +54,7 @@
 
     <div class="form-group">
          <label for="is_admin">Otorgar rol de administrador</label>
-    <input type="checkbox" name="is_admin" value="{{isset($user) ? 1 : 0 }}" />
+         <input type="checkbox" name="is_admin" value=1 />
    
     </div>
 

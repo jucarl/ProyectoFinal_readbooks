@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\categoria;
 use App\Models\Libro;
-use App\Models\User;
-use Database\Seeders\CategoriaSeeder;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
@@ -63,12 +61,12 @@ class CategoriaController extends Controller
      * @param  str  $nombre
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$nombre)
+    public function show(Request $request,$id)
     {
 
-        $idcategoria = Categoria::where('nombre',$nombre)->first()->id;
-        $libros = Libro::where('categoria_id',$idcategoria)->get();
-        //dd($libros,$idcategoria);
+        $nombre = Categoria::where('id',$id)->first()->nombre;
+        $libros = Libro::where('categoria_id',$id)->get();
+        //dd($libros,$id);
         return view('user.categoria')->with(compact('libros','nombre'));
     }
 

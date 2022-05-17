@@ -14,6 +14,17 @@ class LibroResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+
+        //return parent::toArray($request); retornar todos los datos de la colección
+        return [
+            'titulo' => $this->titulo,
+            'autor' => $this->autor,
+            'isbn' => $this->isbn,
+            'fecha_publicacion' => $this->publicacion,
+            'paginas' => $this-> paginas,
+            'descripcion' => $this-> descripcion,
+            'categoria' => $this->categoria()->get(),
+            'fecha' => $this->created_at,
+        ];
     }
 }
