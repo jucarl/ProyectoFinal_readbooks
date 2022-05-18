@@ -61,12 +61,13 @@ class CategoriaController extends Controller
      * @param  str  $nombre
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+    public function show(Request $request,$nombre)
     {
 
-        $nombre = Categoria::where('id',$id)->first()->nombre;
-        $libros = Libro::where('categoria_id',$id)->get();
-        //dd($libros,$id);
+        $categoria = Categoria::where('nombre',$nombre)->first();
+        $nombre = $categoria->nombre;
+        $libros = Libro::where('categoria_id',$categoria->id)->get();
+        //dd($libros,$nombre);
         return view('user.categoria')->with(compact('libros','nombre'));
     }
 
