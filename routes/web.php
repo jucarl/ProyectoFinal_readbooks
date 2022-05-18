@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     if (Auth::check()) {
-        return view('/dashboard');
+        return redirect('/dashboard');
     }
     else {
         return view('auth.login');
