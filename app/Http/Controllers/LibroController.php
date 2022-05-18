@@ -138,8 +138,16 @@ class LibroController extends Controller
     public function showRecents()
     {
         if (auth()->user()->is_admin == 1)
-            return view('dashboard');
-
+        {
+            $totalibros = Libro::count();
+            $totalusuarios = User::count();
+            $totalcategorias = Categoria::count();
+            $nuevosusuarios = User::where('created_at',date('Y-m-d H:i:s'))->count();
+            $nuevoslibros = Libro::where('created_at',date('Y-m-d H:i:s'))->count();
+            
+            //dd($totalibros,$totalusuarios,$totalcategorias);
+            return view('admin',compact('totalibros','totalusuarios','totalcategorias','nuevosusuarios','nuevoslibros'));
+        }
         $descubrir = Libro::inRandomOrder()->limit(5)->get();
         $libros = Libro::whereDate('created_at', '<=', date('Y-m-d H:i:s'))->orderBy('created_at', 'desc')->get();
         //dd($libros,date('Y-m-d H:i:s'));
