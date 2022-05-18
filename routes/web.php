@@ -54,8 +54,4 @@ Route::resource('/categorias', CategoriaController::class)->middleware('auth');
 
 Route::get('/autores/{id}', 'App\Http\Controllers\UsersController@show')->middleware('auth');
 
-Route::get('/site-search',[LibroController::class, 'search']);
 
-Route::get('search-demo', function(){
-    return view('search');
-});

@@ -1,63 +1,63 @@
 <x-navbar>
 
-    <div class="main-content flex-1 mt-16 mx-12">
-        <h1 class="text-blue-500 font-bold text-lg">Catalogo de Categorias</h1>
+
+    <div class="container-md ">
+        <h1 class="text-blue-500 font-bold text-lg mt-3">Catalogo de Categorías</h1>
         @csrf
         <a href="categorias/create" type="button" class="btn btn-outline-primary">AÑADIR CATEGORIA</a>
 
+        <div class="table-responsive">
+            <table class="table table-striped table-md">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Imagen</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-        <table class="table table-striped table-md">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Imagen</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach($categorias as $categoria)
-                <tr>
-                    <td>{{$categoria->id}}</td>
-                    <td>{{$categoria->nombre}}</td>
-                    <td>{{$categoria->descripcion}}</td>
-                    <td><a href="{{$categoria->img}}">image</a></td>
-
-
+                    @foreach($categorias as $categoria)
+                        <tr>
+                            <td>{{$categoria->id}}</td>
+                            <td>{{$categoria->nombre}}</td>
+                            <td>{{$categoria->descripcion}}</td>
+                            <td><a href="{{$categoria->img}}">image</a></td>
 
 
-                <td class="">
 
-                    <div class="container">
-                        <div class="row ">
-                            <div class="col-md-3 col-sm-1 gx-1">
-                                <a href="categorias/{{$categoria->id}}" type="button" class="btn btn-success btn-sm">Editar</a>
+
+                        <td>
+
+                            <div>
+                                <div class="row ">
+                                    <div class="col-lg-3 col-md-6 col-sm-12 ">
+                                        <a href="categorias/{{$categoria->id}}" type="button" class="btn btn-success btn-sm">Editar</a>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12 ">
+                                        <form action="/categorias/{{$categoria->id}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="submit" value="Eliminar"  class="btn btn-danger btn-sm">
+                                        </form>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="col-md-3 col-sm-1 gx-1">
-                                <form action="/categorias/{{$categoria->id}}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" value="Eliminar"  class="btn btn-danger btn-sm">
-                                </form>
-                            </div>
-                            <div class="col-md-0 gx-0">
-                            </div>
-                        </div>
-
-                    </div>
 
 
 
-                </td>
+                        </td>
 
-            </tr>
+                    </tr>
 
-            @endforeach
-        </tbody>
+                    @endforeach
+                </tbody>
 
-    </table>
-</div>
+            </table>
+        </div>
+    </div>
 
 </x-navbar>

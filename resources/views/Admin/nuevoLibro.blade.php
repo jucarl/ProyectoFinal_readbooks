@@ -1,9 +1,15 @@
 <x-navbar>
-    <div class="FormAddLibro">
+
+    @if(!empty($success))
+        @include('modalAlert')
+
+     @endif
+
+    <div class="container-md ">
         @isset($libro)
-            <h1 class="">Editar Libro</h1>
+            <h1 class="mt-3">Editar Libro</h1>
         @else
-        <h1 class="">Agregar Libro</h1>
+        <h1 class="mt-3">Agregar Libro</h1>
         @endisset
         @if ($errors->any())
         <div class="alert alert-danger">
@@ -18,7 +24,6 @@
         {{-- @error('title')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror --}}
-
 
         @isset($libro)
         <form action="/libros/{{$libro->id }}" method="post" class="" enctype="multipart/form-data"> <!----actualizar-->

@@ -108,7 +108,7 @@ class LibroController extends Controller
         $libro->autor()->attach($userID);
         //Redireccionar
 
-        return redirect('/libros');
+        return view('user.modalAlert', ['success'=>'Añadido exitosamente']);
     }
 
     /**
@@ -123,7 +123,7 @@ class LibroController extends Controller
         return view('Admin.detalleLibro', compact('libro', 'categoria'))->with('success', '');
     }
 
- 
+
 
     //funcion para mostrar los libros del usuario actual
     public function showMyBooks()

@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Scout\Searchable;
+
 
 class Libro extends Model
 {
     use softDeletes;
-    use HasFactory, Searchable;
+    use HasFactory;
 
-    const SEARCHABLE_FIELDS = ['id','titulo','autor'];
+
 
     public function categoria()
     {
@@ -38,9 +38,6 @@ class Libro extends Model
         return $query->whereIn('user_id', $ids);
     }
 
-    public function toSearchableArray()
-    {
-        return  $this->only(self::SEARCHABLE_FIELDS);
-    }
+
 
 }
