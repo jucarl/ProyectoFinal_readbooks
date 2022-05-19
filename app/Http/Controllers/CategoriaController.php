@@ -42,8 +42,8 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'Nombre' => 'required',
-            'descripcion' => 'required',
+            'Nombre' => 'required|unique:categorias|max:100',
+            'descripcion' => 'required|max:500',
         ]);
 
         $categoria = new categoria;
@@ -52,7 +52,7 @@ class CategoriaController extends Controller
         $categoria->descripcion = $request->input('descripcion');
         $categoria->save();
 
-        return redirect('categorias');
+        return redirect('categorias')->with('success','Categoría creada exitosamente');
     }
 
     /**
@@ -63,11 +63,11 @@ class CategoriaController extends Controller
      */
     public function show(Request $request,$nombre)
     {
-
+        //dd($nombre);
         $categoria = Categoria::where('nombre',$nombre)->first();
         $nombre = $categoria->nombre;
         $libros = Libro::where('categoria_id',$categoria->id)->get();
-        //dd($libros,$nombre);
+        
         return view('user.categoria')->with(compact('libros','nombre'));
     }
 
@@ -77,8 +77,10 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria $categorias)
+    public function edit(Request $request, $nombre)
     {
+        $categorias = Categoria::where('nombre',$nombre)->first();
+        //dd($categorias);
         return view('Admin.nuevaCategoria',compact('categorias'));
     }
 
@@ -89,9 +91,20 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Categoria $categoria)
     {
-        //
+        //dd($categoria,$request);
+        $request->validate([
+            'Nombre' => 'max:100',
+            'descripcion' => 'max:500',
+        ]);
+        
+        $categoria->timestamps = false;
+        $categoria->nombre = $request->input('Nombre');
+        $categoria->descripcion = $request->input('descripcion');
+        $categoria->save();
+
+        return redirect('categorias')->with('success', 'Categoría editada correctamente');
     }
 
     /**
@@ -103,6 +116,6 @@ class CategoriaController extends Controller
     public function destroy(Categoria $categoria)
     {
         $categoria->delete();
-        return redirect()->back()->with('success', 'Usuario eliminado');
+        return redirect()->back()->with('info', 'Categoría eliminada correctamente');
     }
 }

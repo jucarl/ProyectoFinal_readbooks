@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Donacion</title>
 </head>
 <body>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -14,7 +14,7 @@
     <input type="hidden" name="cmd" value="_xclick">
 
     <!-- Specify details about the item that buyers will purchase. -->
-    <input type="hidden" name="item_name" value="Pago Libros">
+    <input type="hidden" name="item_name" value="Donación">
     <input type="hidden" name="amount" value="">
     <input type="hidden" name="currency_code" value="MXN">
     <input type="hidden" name="shipping" value="1">

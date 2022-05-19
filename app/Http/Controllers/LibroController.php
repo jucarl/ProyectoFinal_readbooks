@@ -109,7 +109,7 @@ class LibroController extends Controller
         $libro->autor()->attach($userID);
         //Redireccionar
 
-        return view('user.modalAlert', ['success'=>'Añadido exitosamente']);
+        return redirect('/libros')->with('success','Libro añadido exitosamente');
     }
 
     /**
@@ -169,7 +169,7 @@ class LibroController extends Controller
             return view('admin',compact('totalibros','totalusuarios','totalcategorias','nuevosusuarios','nuevoslibros','librosMes','UsuariosMes','categoriasMes'));
         }
         $descubrir = Libro::inRandomOrder()->limit(5)->get();
-        $libros = Libro::whereDate('created_at', '<=', date('Y-m-d H:i:s'))->orderBy('created_at', 'desc')->get();
+        $libros = Libro::whereDate('created_at', '<=', date('Y-m-d H:i:s'))->orderBy('created_at', 'desc')->limit(5)->get();
         //dd($libros,date('Y-m-d H:i:s'));
         $categoria = Categoria::all();
         return view('user.index', compact('libros', 'categoria','descubrir'))->with('success', '');
@@ -222,10 +222,9 @@ class LibroController extends Controller
         $libro->paginas = $request->paginas;
         $libro->descripcion = $request->descripcion;
         $libro->categoria_id = $datocateogria;
-        $libro->portada = $request->file('portada_libro');;
 
         //Almacenar la imagen si se añade
-        if ($request->hasFile('portada_libro')); {
+        if ($request->hasFile('portada_libro')) {
             Storage::disk('local')->delete($libro->portada);
             $imagenes = $request->file('portada_libro');
             $imgname = $libro->titulo . time() . '.' . $imagenes->getClientOriginalExtension();
@@ -236,7 +235,7 @@ class LibroController extends Controller
         }
 
         //Almacenar el libro si se añade
-        if ($request->hasFile('archivo_libro')); {
+        if ($request->hasFile('archivo_libro')) {
             Storage::disk('local')->delete($libro->archivo_libro);
             $archivo = $request->file('archivo_libro');
             $filename = $libro->titulo . time() . '.' . $archivo->getClientOriginalExtension();
@@ -249,7 +248,7 @@ class LibroController extends Controller
         $libro->save();
 
         //Redireccionar
-        return redirect('/libros')->with('success', 'Libro Actualizado correctamente.');
+        return redirect('/libros')->with('success', 'Libro actualizado correctamente.');
     }
 
     /**
@@ -263,7 +262,7 @@ class LibroController extends Controller
         $this->authorize('delete', $libro);
         Storage::disk('local')->delete($libro->portada);
         $libro->delete();
-        return redirect()->back()->with('success', 'Libro eliminado');
+        return redirect()->back()->with('info', 'Libro eliminado');
     }
 
 }

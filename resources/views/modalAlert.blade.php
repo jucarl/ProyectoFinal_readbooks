@@ -8,7 +8,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <p>{{ $success }}</p>
+            <p>Session::get('success')</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -18,9 +18,3 @@
     </div>
   </div>
 
-  <script>
-    var myModal = document.getElementById('exampleModal')
-    myModal.show() //REVISAR ESTA PARTE  como mandarlo a llamar
-
-
-  </script>

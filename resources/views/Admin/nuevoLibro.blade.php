@@ -1,10 +1,5 @@
 <x-navbar>
 
-    @if(!empty($success))
-        @include('modalAlert')
-
-     @endif
-
     <div class="container-md ">
         @isset($libro)
             <h1 class="mt-3">Editar Libro</h1>

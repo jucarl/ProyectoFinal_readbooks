@@ -54,6 +54,9 @@
                             <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/categorias">Categorias</a>
                         </li>
                         <li class="flex-1 md:flex-none md:mr-3">
+                            <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="api/Libro/100">Prueba API</a>
+                        </li>
+                        <li class="flex-1 md:flex-none md:mr-3">
                             <div class="relative inline-block">
                                 <button onclick="toggleDD('myDropdown')" class="drop-button text-white py-2 px-2"> <span class="pr-2"><i class="em em-robot_face"></i></span> Hola, {{ Auth::user()->name }} <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                         <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />

@@ -26,10 +26,10 @@
     @endif
 
     @isset($categorias)
-    <form action="/categorias/{{$categorias->id }}" method="post" class="" enctype="multipart/form-data"> <!----actualizar-->
-            @method ('PATCH')
+    <form action="/categorias/{{$categorias->id}}" method="post" class="" enctype="multipart/form-data"> <!----actualizar-->
+        @method ('PATCH')
     @else
-    <form action="{{ route('categorias.store') }}" method="POST">
+    <form action="{{ route('categorias.store')}}" method="POST">
     @endisset
         @csrf
         <div class="form-group">
@@ -38,9 +38,9 @@
         </div>
         <div class="form-group">
             <label class="text-gray-700" for="descripcion">Descripción:</label><br>
-            <textarea class="form-control" id="descripcion" name="descripcion" cols="10" rows="4" placeholder="Descripción" value="{{isset($categorias) ? $categorias->nombre : '' }}"></textarea>
+            <textarea class="form-control" id="descripcion" name="descripcion" cols="10" rows="4" placeholder="Descripción" value="{{isset($categorias) ? $categorias->descripcion : '' }}">{{isset($categorias) ? $categorias->descripcion: ''}}</textarea>
         </div>
-        <button type="submit" class="btn btn-outline-info mt-5">Submit</button>
+        <button type="submit" class="btn btn-outline-info mt-5">Guardar</button>
     </form>
 
     <div>

@@ -7,7 +7,7 @@
             <tr >
                 <th>Titulo</th>
                 <th>Autor</th>
-                <th>Editorial</th>
+                <th>ISBN</th>
                 <th>Fecha de Publicacion</th>
                 <th>Páginas</th>
                 <th>Descripción</th>
@@ -17,9 +17,11 @@
             </tr>
                 <tr>
                     <td>{{$libro -> titulo}}</td>
+                    <td>
                     @foreach($libro->autor as $autor)
-                    <td>{{$autor->name}}</td>
+                    {{$autor->name}}
                     @endforeach
+                    </td>
                     <td>{{$libro -> isbn}}</td>
                     <td>{{$libro -> fecha_publicacion}}</td>
                     <td>{{$libro -> paginas}}</td>

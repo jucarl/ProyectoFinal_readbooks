@@ -2,9 +2,7 @@
 
     <div class="container mt-5">
         <h1 class="text-black-50 fs-3 mt-3">Autores</h1>
-
         <div class="row align-items-center">
-
                 @foreach( $autores as $autor)
                 <div class="col-sm-2">
                     <div class="card text-center border-white  ">

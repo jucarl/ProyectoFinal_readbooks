@@ -1,7 +1,9 @@
 <x-navbar>
 
     <div class="container-md ">
+    
             <h1 class=" font-bold text-lg mt-3">Catalogo de Libros</h1>
+            @include('alert')
             @csrf
             <a href="libros/create" type="button" class="btn btn-outline-primary">AÑADIR LIBRO</a>
 

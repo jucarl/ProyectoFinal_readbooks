@@ -1,7 +1,8 @@
 <x-navbar>
+
     <!--Encabezado: foto, usuario, portada -->
     <div class="container row mx-auto  align-items-center ">
-
+    @include('alert')
         <div class="col-12 col-md-6 mt-5">
             <img src="{{$librosautor->profile_photo_url}}" class="card-img-top w-50 float-md-end mb-5  rounded-circle">
         </div>

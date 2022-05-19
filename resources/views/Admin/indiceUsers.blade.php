@@ -2,6 +2,7 @@
 
     <div class="container-md ">
         <h1 class="text-blue-500 font-bold text-lg mt-3">Usuarios</h1>
+        @include('alert')
         @csrf
         <a href="autores/create" type="button" class="btn btn-outline-primary">AÑADIR USUARIO</a>
 

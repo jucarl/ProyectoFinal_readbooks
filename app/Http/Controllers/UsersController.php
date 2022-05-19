@@ -61,7 +61,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        return back();
+        return redirect('/autores')->with('success', 'Usuario Creado');
     }
 
     /**
@@ -120,7 +120,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect()->back()->with('success', 'Usuario Modificado');
+        return redirect('/autores')->with('success', 'Usuario Modificado');
     }
 
     /**
@@ -133,6 +133,6 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect()->back()->with('success', 'Usuario Eliminado');
+        return redirect()->back()->with('info', 'Usuario Eliminado');
     }
 }

@@ -85,9 +85,6 @@
                   <li class="nav-item">
                     <a class="nav-link" href="/categorias">Categorías</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="api/Libro/100">API JSON</a>
-                  </li>
                 </ul>
                   <div class="d-flex">
                         <li class="nav-item" style="list-style: none">
