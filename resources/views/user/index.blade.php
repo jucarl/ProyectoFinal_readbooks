@@ -7,12 +7,12 @@
 
                     <div class="card-body">
 
-                        <div class="row justify-content-center">
+                        {{-- <div class="row justify-content-center">
                             <form class="form-inline col-md-6 justify-content-center" action="search" method="GET">
                                 <input type="text" class="form-control mx-sm-3 mb-2" name="search">
                                 <button type="submit" class="btn btn-secondary mb-2"></button>
                             </form>
-                        </div>
+                        </div> --}}
 
                         {{--Banner--}}
                         <div class="row justify-content-center">
@@ -28,7 +28,7 @@
                                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
                                     @foreach( $descubrir as $libro)
 
-                                        <div class="col-mb-5">
+                                        <div class="col-md-3 mt-2">
 
                                             <div class="card h-100" id="contLibro">
                                                 <a class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{$libro->id}}">
@@ -54,7 +54,7 @@
                                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
                                     @foreach( $libros as $libro)
 
-                                        <div class="col-mb-5">
+                                        <div class="col-md-3 mt-2">
 
                                             <div class="card h-100" id="contLibro">
                                                 <a class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{$libro->id}}">

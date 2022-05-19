@@ -7,6 +7,7 @@ use App\Models\Libro;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -139,14 +140,33 @@ class LibroController extends Controller
     {
         if (auth()->user()->is_admin == 1)
         {
+
+
             $totalibros = Libro::count();
             $totalusuarios = User::count();
             $totalcategorias = Categoria::count();
             $nuevosusuarios = User::where('created_at',date('Y-m-d H:i:s'))->count();
             $nuevoslibros = Libro::where('created_at',date('Y-m-d H:i:s'))->count();
-            
+
+            $mes = date("n");
+            for ($i=3;$i>=0;$i--)
+                $librosMes[$i] = Libro::whereMonth('created_at',$mes--)->count();
+
+            $mes = date("n");
+            for ($i=3;$i>=0;$i--)
+                $UsuariosMes[$i] = User::whereMonth('created_at',$mes--)->count();
+
+            $categoriasMes = DB::table('categorias')
+                            ->join('libros','categorias.id','=','libros.categoria_id')
+                            ->selectRaw('categorias.nombre,count(libros.id) as usuarios' )
+                            ->groupBy('categorias.nombre')
+                            ->orderBy('usuarios', 'desc')
+                            ->get();
+
+            //$categoriasMes = (array) $queryCategorias;
+            //dd($categoriasMes);
             //dd($totalibros,$totalusuarios,$totalcategorias);
-            return view('admin',compact('totalibros','totalusuarios','totalcategorias','nuevosusuarios','nuevoslibros'));
+            return view('admin',compact('totalibros','totalusuarios','totalcategorias','nuevosusuarios','nuevoslibros','librosMes','UsuariosMes','categoriasMes'));
         }
         $descubrir = Libro::inRandomOrder()->limit(5)->get();
         $libros = Libro::whereDate('created_at', '<=', date('Y-m-d H:i:s'))->orderBy('created_at', 'desc')->get();

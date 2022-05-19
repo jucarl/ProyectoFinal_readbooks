@@ -15,15 +15,22 @@
                                             <div class="col-md-8">
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{$libro->titulo}}</h5>
+
+                                                    @foreach($libro->autor as $autor)
+
+                                                        <a class="text-decoration-none" href="/autores/{{$autor->id}}"><p class="card-text px-0"><small class="text-muted">{{$autor->name}}</small></p></a>
+                                                    @endforeach
+
                                                     <p class="card-text">{{$libro->descripcion}}</p>
                                                     <p class="card-text"><small class="text-muted">{{$libro->categoria->nombre}}</small></p>
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                     <a href="{{$libro->archivo_libro}}" {{$libro->archivo_libro}} type="button" class="btn btn-primary">Leer obra</a>
                                 </div>
                             </div>

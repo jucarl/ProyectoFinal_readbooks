@@ -22,17 +22,15 @@
     <header>
         <!--Nav-->
         <nav aria-label="menu nav" class="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
-            <a class="navbar-brand" href="/dashboard">
-                {{-- <img src="assets/" alt="" width="40" height="30"> --}}
-                <x-slot name="logo">
-                    <x-jet-authentication-card-logo />
-                </x-slot>
-                ReadBooks
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+
             <div class="flex flex-wrap items-center">
+                <a class="navbar-brand text-white ml-2" href="/dashboard">
+                    {{-- <img src="assets/" alt="" width="40" height="30">
+                    <x-slot name="logo">
+                        <x-jet-authentication-card-logo />
+                    </x-slot>--}}
+                    ReadBooks
+                </a>
                 <div class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
                     <a href="#" aria-label="Home">
                         <span class="text-xl pl-2"><i class="em em-grinning"></i></span>
@@ -57,7 +55,7 @@
                         </li>
                         <li class="flex-1 md:flex-none md:mr-3">
                             <div class="relative inline-block">
-                                <button onclick="toggleDD('myDropdown')" class="drop-button text-white py-2 px-2"> <span class="pr-2"><i class="em em-robot_face"></i></span> Hi, {{ Auth::user()->name }} <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <button onclick="toggleDD('myDropdown')" class="drop-button text-white py-2 px-2"> <span class="pr-2"><i class="em em-robot_face"></i></span> Hola, {{ Auth::user()->name }} <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                         <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                                     </svg></button>
                                 <div id="myDropdown" class="dropdownlist absolute bg-gray-800 text-white right-0 mt-3 p-3 overflow-auto z-30 invisible">
@@ -175,7 +173,7 @@
                                     </div>
                                     <div class="flex-1 text-right md:text-center">
                                         <h2 class="font-bold uppercase text-gray-600">Categoría mas popular</h2>
-                                        <p class="font-bold text-3xl">Fantasía <span class="text-red-500"><i class="fas fa-caret-up"></i></span></p>
+                                        <p class="font-bold text-3xl">Ciencia Ficción <span class="text-red-500"><i class="fas fa-caret-up"></i></span></p>
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +188,7 @@
                             <!--Graph Card-->
                             <div class="bg-white border-transparent rounded-lg shadow-xl">
                                 <div class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
-                                    <h class="font-bold uppercase text-gray-600">Libros</h>
+                                    <h1 class="font-bold uppercase text-gray-600">Libros</h1>
                                 </div>
                                 <div class="p-5">
                                     <canvas id="chartjs-7" class="chartjs" width="undefined" height="undefined"></canvas>
@@ -198,10 +196,10 @@
                                         new Chart(document.getElementById("chartjs-7"), {
                                             "type": "bar",
                                             "data": {
-                                                "labels": ["Marzo", "Abril", "Mayo", "Junio"],
+                                                "labels": ["Febrero", "Marzo","Abril", "Mayo"],
                                                 "datasets": [{
                                                     "label": "Libros",
-                                                    "data": [10, 20, 30, 40],
+                                                    "data": [{{$librosMes[0]}}, {{$librosMes[1]}}, {{$librosMes[2]}}, {{$librosMes[3]}}],
                                                     "borderColor": "rgb(255, 99, 132)",
                                                     "backgroundColor": "rgba(255, 99, 132, 0.2)"
                                                 }]
@@ -234,10 +232,10 @@
                                         new Chart(document.getElementById("chartjs-0"), {
                                             "type": "line",
                                             "data": {
-                                                "labels": ["January", "February", "March", "April", "May", "June", "July"],
+                                                "labels": ["Febrero", "Marzo","Abril", "Mayo"],
                                                 "datasets": [{
-                                                    "label": "Views",
-                                                    "data": [65, 59, 80, 81, 56, 55, 40],
+                                                    "label": "Usuarios registrados",
+                                                    "data": [{{$UsuariosMes[0]}}, {{$UsuariosMes[1]}}, {{$UsuariosMes[2]}}, {{$UsuariosMes[3]}}],
                                                     "fill": false,
                                                     "borderColor": "rgb(75, 192, 192)",
                                                     "lineTension": 0.1
@@ -263,10 +261,10 @@
                                         new Chart(document.getElementById("chartjs-1"), {
                                             "type": "bar",
                                             "data": {
-                                                "labels": ["January", "February", "March", "April", "May", "June", "July"],
+                                                "labels": ["{{$categoriasMes[0]->nombre}}", "{{$categoriasMes[1]->nombre}}","{{$categoriasMes[2]->nombre}}", "{{$categoriasMes[3]->nombre}}"],
                                                 "datasets": [{
-                                                    "label": "Likes",
-                                                    "data": [65, 59, 80, 81, 56, 55, 40],
+                                                    "label": "Libros por categoria",
+                                                    "data": [{{$categoriasMes[0]->usuarios }},{{$categoriasMes[1]->usuarios }},{{$categoriasMes[2]->usuarios }},{{$categoriasMes[3]->usuarios }}],
                                                     "fill": false,
                                                     "backgroundColor": ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
                                                     "borderColor": ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],

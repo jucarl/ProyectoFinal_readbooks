@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html>
-
-<body>
-    <div class="row">
+<x-navbar>
+    <div class="container-md ">
         <div class="col-lg-11">
+
         @isset($categorias)
-            <h2>Añadir Nueva Categoría</h2>
+            
+            <h2 class="mt-3">Editar Categoría</h2>
         @else
-        <h2>Editar Categoría</h2>
+            <h2 class="mt-3">Añadir Nueva Categoría</h2>
         @endisset
         </div>
-        <div class="col-lg-1">
+        {{-- <div class="col-lg-1">
             <a class="btn btn-primary" href="{{ url('categorias') }}"> Volver</a>
-        </div>
-    </div>
+        </div> --}}
+
 
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -34,15 +33,15 @@
     @endisset
         @csrf
         <div class="form-group">
-            <label for="Nombre">Nombre de la Categoría:</label>
+            <label class="text-gray-700" for="Nombre">Nombre de la Categoría:</label>
             <input type="text" class="form-control" id="Nombre" placeholder="Ingresa el nombre" name="Nombre" value="{{isset($categorias) ? $categorias->nombre : '' }}">
         </div>
         <div class="form-group">
-            <label for="descripcion">Descripción:</label><br>
-            <textarea class="form-control" id="descripcion" name="descripcion" rows="10" placeholder="Descripción" value="{{isset($categorias) ? $categorias->nombre : '' }}"></textarea>
+            <label class="text-gray-700" for="descripcion">Descripción:</label><br>
+            <textarea class="form-control" id="descripcion" name="descripcion" cols="10" rows="4" placeholder="Descripción" value="{{isset($categorias) ? $categorias->nombre : '' }}"></textarea>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-outline-info mt-5">Submit</button>
     </form>
-</body>
 
-</html>
+    <div>
+</x-navbar>

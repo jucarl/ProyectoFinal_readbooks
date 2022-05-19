@@ -83,7 +83,7 @@
                 @enderror
             </div>
             <br>
-            <button type="submit" class="btn btn-outline-info">Guardar</button>
+            <button type="submit" class="btn btn-outline-info mt-5">Guardar</button>
         </form>
         <div class="mb-3">
 

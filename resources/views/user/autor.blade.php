@@ -1,6 +1,6 @@
 <x-navbar>
     <!--Encabezado: foto, usuario, portada -->
-    <div class="container row gx-4 gx-lg-5 align-items-center ">
+    <div class="container row mx-auto  align-items-center ">
 
         <div class="col-12 col-md-6 mt-5">
             <img src="{{$librosautor->profile_photo_url}}" class="card-img-top w-50 float-md-end mb-5  rounded-circle">
@@ -14,7 +14,7 @@
             </div>
             <p class="lead">{{$librosautor->about_me}}</p>
             @include('user.mercadopago')
-            
+
 
         </div>
 
@@ -27,7 +27,7 @@
                     @foreach( $librosautor->Libros as $libro)
 
 
-                    <div class="col-mb-5">
+                    <div class="col-lg-3 col-md-4 col-sm-6">
 
                         <div class="card h-100" id="contLibro">
                             <a class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{$libro->id}}"> {{---href="{{$libro->archivo_libro}}"{{$libro->archivo_libro}}>--}}

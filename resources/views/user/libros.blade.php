@@ -9,19 +9,19 @@
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6">
                     @foreach($libros as $libro)
 
-                        <div class="col" >
+                    <div class="col mt-4">
 
-                            <div class="card shadow" >
+                            <div class="card shadow h-100 " >
                                 <a class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{$libro->id}}">
-                                    <img src="{{$libro->portada}}" alt="" class="card-img-top px-3 py-2" id="Libro" > </a>
-                                    <div class="card-body py-2">
-                                        <h5 class="card-title text-center text-cute text-truncate " title="{{$libro->titulo}}">{{$libro->titulo}}</h5>
-                                        @foreach($libro->autor as $autor)
+                                    <img src="{{$libro->portada}}" alt="" class="card-img-top" id="Libro" > </a>
+
+                                        <h5 class="card-title text-center text-secondary text-truncate " title="{{$libro->titulo}}">{{$libro->titulo}}</h5>
+                                        {{-- @foreach($libro->autor as $autor)
                                             <a class="text-decoration-none" href="autores/{{$autor->id}}"><p class="card-subtitle text-secondary">{{$autor->name}}</p></a>
-                                        @endforeach
-                                        {{-- <p class="card-text">{{$libro->descripcion}}</p> --}}
-                                        <p class="card-text">{{$libro->categoria->nombre}}</p>
-                                    </div>
+                                        @endforeach --}}
+
+                                        <p class="card-text px-3 pb-2">{{$libro->categoria->nombre}}</p>
+
 
 
                             </div>

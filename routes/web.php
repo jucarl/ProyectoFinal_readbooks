@@ -44,7 +44,9 @@ Route::resource('/libros', LibroController::class)->middleware('auth');
 
 Route::get('/dashboard', [LibroController::class, 'showRecents'])->middleware('auth')->name('dashboard');
 
-
+Route::get('/profile', function () {
+    return view('profile.show');
+})->middleware('auth');
 
 
 Route::get('create',[LibroController::class, 'create'])->name('create')->middleware('auth');
