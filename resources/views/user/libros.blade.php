@@ -16,9 +16,6 @@
                                     <img src="{{$libro->portada}}" alt="" class="card-img-top" id="Libro" > </a>
 
                                         <h5 class="card-title text-center text-secondary text-truncate " title="{{$libro->titulo}}">{{$libro->titulo}}</h5>
-                                        {{-- @foreach($libro->autor as $autor)
-                                            <a class="text-decoration-none" href="autores/{{$autor->id}}"><p class="card-subtitle text-secondary">{{$autor->name}}</p></a>
-                                        @endforeach --}}
 
                                         <p class="card-text px-3 pb-2">{{$libro->categoria->nombre}}</p>
 

@@ -163,9 +163,6 @@ class LibroController extends Controller
                             ->orderBy('usuarios', 'desc')
                             ->get();
 
-            //$categoriasMes = (array) $queryCategorias;
-            //dd($categoriasMes);
-            //dd($totalibros,$totalusuarios,$totalcategorias);
             return view('admin',compact('totalibros','totalusuarios','totalcategorias','nuevosusuarios','nuevoslibros','librosMes','UsuariosMes','categoriasMes'));
         }
         $descubrir = Libro::inRandomOrder()->limit(5)->get();
